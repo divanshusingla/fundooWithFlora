@@ -1,0 +1,28 @@
+<button *ngIf="mat=='archive' || mat=='mainnotes'  || mat=='search' || mat == 'notesByLabel'  " mat-icon-button [matMenuTriggerFor]="menu" title="More">
+  <mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #menu="matMenu" [overlapTrigger]="false">
+    <button mat-menu-item (click)="trashNotes(noteid)">Delete Note</button>
+  <button mat-menu-item [matMenuTriggerFor]="labelsList" >Add label</button>
+  <mat-menu #labelsList>
+      <p>Label Note</p>
+      <mat-selection-list>
+      <mat-list-option *ngFor="let label of labels" (click)="addLabels(label.id,noteid)">
+      {{label.label}}
+      </mat-list-option>
+      </mat-selection-list>
+      </mat-menu>
+  <button mat-menu-item routerLink="/question/{{noteid}}">Q&A</button>
+  <button mat-menu-item>Show checkboxes</button>
+</mat-menu>
+
+
+<div *ngIf="mat=='trash'">
+    <button mat-icon-button [matMenuTriggerFor]="menu" title="More">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" [overlapTrigger]="false">
+        <button mat-menu-item (click)="deleteForever(noteid)">Delete Forever</button>
+      <button mat-menu-item (click)="restoreNote(noteid)">Restore</button>
+    </mat-menu>
+  </div>

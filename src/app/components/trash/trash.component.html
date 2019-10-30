@@ -1,0 +1,20 @@
+<app-display-notes [display]="trashNotes" [component]="component"></app-display-notes>
+<!-- <div fxLayoutGap="5px" fxLayout="row wrap" fxLayout.xs="row wrap" fxLayout.sm="row wrap" class="container">
+    <mat-card fxFlex="25"  class="dcard" [ngStyle]="{background : note.color}" *ngFor="let note of notes" fxFlex.xs="100" fxFlex.sm="46">
+      <div  (click)="openDialog(note)">
+          <p style=" word-break: break-all" >{{note.title}}</p>
+      </div>
+      <div (click)="openDialog(note)">
+          <p style=" word-break: break-all">{{note.description}}</p>
+      </div>
+      <div fxLayoutAlign="space-start center">
+        <button mat-icon-button [matMenuTriggerFor]="menu" title="More">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" [overlapTrigger]="false">
+            <button mat-menu-item (click)="deleteForever(note.id)">Delete Forever</button>
+          <button mat-menu-item (click)="restoreNote(note.id)">Restore</button>
+        </mat-menu>
+      </div>
+    </mat-card>
+  </div> -->

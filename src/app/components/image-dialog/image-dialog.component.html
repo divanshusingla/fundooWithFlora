@@ -1,0 +1,33 @@
+<div fxFlex="100" style="width: 100%;" style="height: 100%;" fxLayout="column">
+    <div fxFlex="10" >
+  <h3>Select profile photo</h3>
+  </div>
+  <div fxFlex="70" >
+      <input style="display: none;" type='file' (change)="fileChangeEvent($event)" #fileEvent>
+      <mat-tab-group>
+        <mat-tab label="Upload photos" >
+         <button (click)="fileEvent.click()">Select a photo from your computer</button>
+        </mat-tab>
+        <mat-tab label="Your photos">
+            <textarea></textarea>
+          <button><mat-icon>search</mat-icon></button>
+        </mat-tab>
+      </mat-tab-group>
+  <image-cropper style="min-height: 45vh;"
+    [imageChangedEvent]="imageChangedEvent"
+       (imageCropped)="imageCropped($event)"
+></image-cropper>
+  </div>
+  
+  <div fxFlex="20" fxLayoutGap="10px" fxLayout="row">
+  
+    <div>
+  <button mat-raised-button color="primary" (click)="uploadimage()">Set as profile photo</button>
+  </div>
+  <div>
+  <button mat-raised-button (click)="close()">Cancel</button>
+  </div>
+  
+  </div>
+  
+  </div>

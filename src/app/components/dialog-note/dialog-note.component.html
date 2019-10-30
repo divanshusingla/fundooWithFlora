@@ -1,0 +1,20 @@
+<div class="container" fxLayout="column" [ngStyle]="{background : data.color}" fxLayoutGap="10px" *ngIf="data.component == 'mainnotes' || data.component == 'archive'">
+
+  <textarea matInput type="text" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+    cdkAutosizeMaxRows="25" class="text" placeholder="Title" [formControl]="title" value="{{data.title}}"></textarea>
+
+  <textarea matInput type="text" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+    cdkAutosizeMaxRows="25" class="text" placeholder="Take a Note" [formControl]="description"
+    value="{{data.description}}"></textarea>
+  <div class="footer" fxLayoutAlign="space-between center">
+    <app-toolbar [noteid]="data.id" [function]=data.component></app-toolbar>
+    <button mat-button (click)=" updateNote()">Close</button>
+  </div>
+</div>
+<div class="container" fxLayout="column" fxLayoutGap="10px" *ngIf="data.component== 'trash'">
+  <p style="word-break: break-all;min-width : 40%">{{data.title}}</p>
+  <p style="word-break: break-all">{{data.description}}</p>
+  <app-toolbar [noteid]="data.id" [function]=data.component></app-toolbar>
+</div>
+
+

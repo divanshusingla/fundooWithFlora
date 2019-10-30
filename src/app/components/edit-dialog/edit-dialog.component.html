@@ -1,0 +1,39 @@
+<div class="container" fxLayout="column" fxLayoutGap="10px">
+    <div fxLayout="row" fxLayoutAlign="space-evenly center">
+      <div fxFlex=30>
+          <button mat-button>
+          <mat-icon matPrefix matToolTip="Cancel" (click)="labelModel=' '">clear</mat-icon>
+        </button>
+        </div>
+      <div fxFlex=40>
+          <textarea matInput type="text" placeholder="Create Label" [(ngModel)]="labelModel" [formControl]="labelName"></textarea>
+        <!-- <input matInput placeholder="create a new label" [formControl]="labelName"> -->
+      </div>
+      <div fxFlex=30 fxLayoutAlign="end end"><button mat-button matToolTip="Create Label"  (click)="addLabel()">
+          <mat-icon matSuffix>
+            done
+          </mat-icon>
+        </button>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-evenly center" *ngFor="let label of labels"> 
+      <div fxFlex=30 >
+        <button mat-button (click)="deleteLabel(label)">
+        <mat-icon matPrefix matToolTip="Delete label">delete</mat-icon>
+      </button>
+      </div>
+      <div fxFlex=40>
+        <!-- <p>{{label.label}}</p> -->
+        <textarea matInput type="text" [formControl]="updateLabel" value="{{label.label}}"></textarea>
+      </div>
+      <div fxFlex=30 fxLayoutAlign="end end">
+          <button mat-button (click)="updateNoteLabel(label)">
+        <mat-icon matSuffix>create</mat-icon>
+      </button>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxLayout="row" fxLayoutAlign="end end">
+      <button mat-button (click)="done()" >Done</button>
+    </div>
+  </div>

@@ -1,0 +1,30 @@
+<div class="mainLayout">
+  <mat-card class="card" fxLayout.xs="column" fxLayout.sm="column" fxLayout="row" fxLayoutAlign="center center" >
+    <div class="loginImage" fxFlex="50" fxHide.xs="true" fxHide.md="true" fxShow="true">
+      <img src="../../../assets/images/logInPage.png" class="image">
+    </div>
+
+    <div class="loginForm" fxFlex="50"  fxLayout="column" fxLayoutAlign="center center">
+      <mat-card-header>
+        <mat-card-title class="pageTitle">Sign in</mat-card-title>
+      </mat-card-header>
+
+      <mat-form-field appearance="outline" class="field">
+        <mat-label> Email </mat-label>
+        <input matInput placeholder="email" type="email"  [formControl]="email" required>
+        <mat-error *ngIf="email.invalid">{{ getEmailInvalidMessage()}} </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="field" >
+        <mat-label> Password</mat-label>
+        <input matInput placeholder="password" type="password"  [formControl]="password" required>
+        <mat-error *ngIf="password.invalid">{{getPasswordInvalidMessage()}} </mat-error>
+      </mat-form-field>
+     
+      <div fxLayout="column" fxLayoutAlign="space-around center" >
+      <button mat-raised-button color="primary" class="buttonLo" (click)="onLogin()">Log in</button><br>
+      <button mat-raised-button color="primary" class="buttonCreate" routerLink="../registration">Create an account </button><br>
+      <a routerLink="../forgot"> Forgot Password? </a>
+      </div>
+    </div>
+    </mat-card>
+    </div>

@@ -1,0 +1,100 @@
+<div class="container" fxLayout="column">
+  <mat-toolbar class="toolbar" fxFlex="9">
+    <button mat-button (click)="drawer.toggle()" class="toolbarButton">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <img src="../../../assets/images/dashboardIcon.png" class="image">
+    <p class="toolbarHeading">MyNotes</p>
+
+    <!-- <mat-card class="searchbar" fxHide.xs="true" fxShow="true">
+        <button><mat-icon matPrefix>search</mat-icon></button>
+        <textarea matInput type="text" cdkTextareaAutosize [(ngModel)]="searchText" [formControl]="search" placeholder="Search" class="searchtype" ></textarea>
+    </mat-card> -->
+
+    <mat-form-field class="searchbar" appearance="outline" fxHide.xs="true" fxShow="true">
+      <button mat-icon-button matPrefix>
+        <mat-icon>search</mat-icon>
+      </button>
+      <input matInput id="search" (ngModelChange)="valuechange($event)" 
+      [(ngModel)]="searchText" placeholder="Search">
+    </mat-form-field>
+
+    <button mat-button class="toolbarButton" (click)="toggle()" *ngIf="show ==true">
+        <mat-icon>view_agenda</mat-icon>
+      </button>
+      <button mat-button class="toolbarButton" *ngIf="show ==false" (click)="toggle()">
+          <mat-icon>border_all</mat-icon>
+        </button>
+  
+    <button mat-button class="toolbarButton">
+      <mat-icon>apps</mat-icon>
+    </button>
+
+
+    <button mat-icon-button [matMenuTriggerFor]="Userdetails" class="toolbarButton" matTooltip="Google Account">
+      <img mat-card-avatar [src]="url? url : 'https://www.w3schools.com/howto/img_avatar.png'"></button>
+
+
+    <mat-menu #Userdetails [overlapTrigger]="false">
+      <div>
+        <div class="accountmatcard" fxLayout="column" fxLayoutAlign="space-around center">
+          <div fxLayout="row" fxLayoutAlign="space-around center">
+            <div class="image-container">
+              <img [src]="url? url : 'https://www.w3schools.com/howto/img_avatar.png'"> <br />
+              <span (click)=openDialog() class="message">Change</span>
+            </div>
+            <div>
+              <p>{{name}}</p>
+              <p>{{email}}</p>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+          <div fxLayout="row">
+            <div><button mat-menu-item  routerLink="login">Add account</button></div>
+            <div><button mat-menu-item (click)="logout()" routerLink="/login">Sign out</button></div>
+          </div>
+        </div>
+      </div>
+    </mat-menu>
+  </mat-toolbar>
+  <mat-divider></mat-divider>
+
+  <div class="toolnote" fxFlex="90">
+ <div>
+    <mat-drawer-container class="maincontainer" fxHide.xs="true" fxShow="true">
+      <mat-drawer #drawer mode="side" class="sidebar" opened>
+        <mat-nav-list fxLayout="column" fxLayoutGap="5px">
+          <a routerLinkActive="cd" routerLink="/note" fxLayoutAlign="start center">
+            <mat-icon class="sidebaricons" >description</mat-icon>Notes
+          </a>
+          <a routerLinkActive="cd"  routerLink="/reminder" fxLayoutAlign="start center">
+            <mat-icon class="sidebaricons" >notifications</mat-icon>Reminder
+          </a>
+          <mat-divider></mat-divider>
+          <p class="labelHeadingToolbar" mat-header>LABELS</p>
+
+          <div *ngFor="let label of labels">
+            <a routerLinkActive="cd"  fxLayoutAlign="start center" routerLink="/label/{{label.label}}" (click)="goToLabelData(label.label)">
+              <mat-icon class="sidebaricons">label</mat-icon>{{label.label}}
+            </a>
+          </div>
+          <a routerLink="." fxLayoutAlign="start center" (click)="onEdit()">
+            <mat-icon class="sidebaricons">create</mat-icon>Edit Labels
+          </a>
+          <mat-divider></mat-divider>
+          <a routerLinkActive="cd" fxLayoutAlign="start center" routerLink="/archive">
+            <mat-icon class="sidebaricons">archive</mat-icon>Archive
+          </a>
+          <a routerLinkActive="cd"  fxLayoutAlign="start center"routerLink="/trash">
+            <mat-icon class="sidebaricons">delete</mat-icon>Trash
+          </a>
+        </mat-nav-list>
+      </mat-drawer>
+    </mat-drawer-container>
+  </div>
+    <div fxFlex="80" fxFlex.xs="100" fxFlex.sm="100"> 
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  
+</div>

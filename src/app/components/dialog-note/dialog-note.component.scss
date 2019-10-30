@@ -1,0 +1,23 @@
+
+::ng-deep .mat-dialog-container {
+    padding: 0px;
+    border-radius: 10px;
+   
+  }
+.container
+{
+    display: flex;   
+}
+.text
+{
+    width: 80%;
+    border : none;
+    outline: none;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.footer
+{
+    display: flex;
+}

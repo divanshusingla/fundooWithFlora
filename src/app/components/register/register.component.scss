@@ -1,0 +1,42 @@
+@import '../../appStyles/colors.scss' ;
+
+.mainLayout {
+  height: 100%;
+  display: flex;
+    align-items: center;
+    justify-content: center;
+  background-image: url('../../../assets/images/backgroundImage.png');
+}
+
+.card {
+  width: 65%; 
+  border-radius: 50px;
+}
+
+.regImage
+{
+  height: 100%;
+}
+
+.image{
+width: 90%;
+height: 900%;
+}
+
+.pageTitle
+{
+   color:$navy;
+   font-size: 30px;
+}
+
+.regisForm
+{
+  width: 50%;
+  height: 100%;
+}
+
+.field
+{
+  width: 100%;
+   font-size: small;
+}

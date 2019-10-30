@@ -1,0 +1,55 @@
+<div class="mainLayout">
+  <mat-card class="card" fxLayout.xs="column" fxLayout.sm="column" fxLayout="row" fxLayoutAlign="center center">
+     
+    <div class="regImage" fxFlex="50" fxHide.xs="true" fxHide.md="true" fxShow="true">
+          <img src="../../../assets/images/registrationPage.jpg" class="image">
+        </div>
+
+     <div class="regisForm"  fxLayout="column" fxLayoutAlign="start center">
+    <mat-card-header> 
+        <img src="../../../assets/images/fundooLogo.png" width="70" height= "60px">
+      <mat-card-title class="pageTitle">Fundoo Notes</mat-card-title>
+    </mat-card-header>
+
+    <mat-form-field appearance="outline" class="field">
+      <mat-label> First Name</mat-label>
+      <input matInput placeholder="First Name" [formControl]="firstName" required>
+      <mat-error *ngIf="firstName.invalid">{{FirstNameInvalidMessage()}} </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="field">
+        <mat-label> Last Name</mat-label>
+        <input matInput placeholder="Last Name" [formControl]="lastName" required>
+        <mat-error *ngIf="lastName.invalid">{{ LastNameInvalidMessage()}} </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="field">
+          <mat-label> Email </mat-label>
+          <input matInput placeholder="email" type="email"  [formControl]="email" required>
+          <mat-error *ngIf="email.invalid">{{ getEmailInvalidMessage()}} </mat-error>
+        </mat-form-field>
+
+
+    <mat-form-field appearance="outline" class="field" >
+      <mat-label> Password</mat-label>
+      <input matInput placeholder="password" type="password"  [formControl]="password" required minlength="8">
+      <mat-error *ngIf="password.invalid">{{getPasswordInvalidMessage()}} </mat-error>
+      <mat-hint>Password must be 8 characters long</mat-hint>
+    </mat-form-field>
+
+
+    <mat-form-field class="field" appearance="outline">
+      <mat-label>Confirm-Password</mat-label>
+      <input matInput placeholder="Confirm-Password"  type="password" [formControl]="confirmPassword" 
+      pattern="{{password.value}}" required minlength="8">
+      <mat-error *ngIf="confirmPassword.invalid">{{ConfirmPasswordInvalidMessage()}} </mat-error>
+    </mat-form-field>
+    
+   <div style="width:100%" fxLayoutAlign="space-around center">
+    <button mat-raised-button color="primary" class="button" (click)="onRegister()" >Register</button>
+    <button mat-raised-button color="primary" class="button" routerLink="../login">Sign in</button>
+    </div>
+  </div>       
+</mat-card>
+
+</div>

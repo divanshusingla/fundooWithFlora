@@ -1,0 +1,17 @@
+<app-display-notes [display]="searchNote" [component]="component"></app-display-notes>
+
+
+
+<!-- <div fxLayoutGap="5px" fxLayout="row wrap" fxLayout.xs="row wrap" fxLayout.sm="row wrap" class="container">
+  <mat-card fxFlex="30"  class="dcard" *ngFor="let note of allNotes | search : searchText" [ngStyle]="{background : note.color}" fxFlex.xs="100" fxFlex.sm="46">
+    <div  (click)="openDialog(note)">
+        <p style=" word-break: break-all" >{{note.title}}</p>
+    </div>
+    <div (click)="openDialog(note)">
+        <p style=" word-break: break-all">{{note.description}}</p>
+    </div>
+    <div fxLayoutAlign="space-between center">
+      <app-toolbar (messageEvent)="receiveMessage($event)" [noteid]="note.id" [function]="component"></app-toolbar>
+    </div>
+  </mat-card>
+</div>   -->

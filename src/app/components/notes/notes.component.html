@@ -1,0 +1,33 @@
+<div class="container" fxLayoutAlign="space-around center">
+  <div class="titlecard1" (click)="toggle()" *ngIf="show" fxFlex="50" fxFlex.xs="90">
+    <mat-card class="card1">
+      <textarea matInput type="text" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="25" placeholder="Take a note" class="area1"></textarea>
+    </mat-card>
+  </div>
+
+  <div class="titlecard2"  *ngIf="!show" fxFlex="50" fxFlex.xs="90">
+    <mat-card class="card2" [ngStyle]="{background : message}" fxLayout="column" fxLayoutGap="20px" >
+      <textarea matInput type="text" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="25" placeholder="Title" class="area2" [formControl]="title" [(ngModel)]="titleMo"></textarea>
+      <textarea matInput type="text" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="25" placeholder="Take a Note" class="area2" [formControl]="description" [(ngModel)]="descriptionMo"></textarea>
+     
+        <div *ngIf="reminderMessage != ''">
+          <mat-chip-list>
+            <mat-chip class="chips">{{reminderMessage}}
+              <button class="hide" matSuffix mat-icon-button>
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+     
+        <div style="display: flex" fxLayoutAlign="space-between center">
+        <app-toolbar fxFlex="75" (messageEvent)="receiveMessage($event)" (reminderEvent)="receiveReminderMessage($event)" [function]="component"></app-toolbar>
+        <button mat-button (click)="receiveData()">Close</button>
+       
+      </div>
+    </mat-card>
+  </div>
+</div>

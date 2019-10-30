@@ -1,0 +1,55 @@
+@import '../../appStyles/colors.scss' ;
+
+.mainLayout {
+  height: 100%;
+  display: flex;
+    align-items: center;
+    justify-content: center;
+  background-image: url('../../../assets/images/backgroundImage.png');
+}
+
+.card {
+  width: 60%;
+  border-radius: 50px;
+}
+
+.loginImage
+{
+  height: 20%;
+  width: 40%;
+}
+
+.loginForm
+{
+  height: 100%;
+}
+
+
+.image{
+width: 85%;
+height: 100%;
+}
+
+
+
+.pageTitle
+{
+   color:$navy;
+   font-size: 40px;
+}
+
+.field
+{
+  width: 100%;
+   font-size: medium;
+  }
+
+
+.buttonLo
+{
+  background-color :$navy;  
+}
+.buttonCreate
+{
+  background-color: $red;  
+}

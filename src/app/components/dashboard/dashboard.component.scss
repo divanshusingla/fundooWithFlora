@@ -1,0 +1,132 @@
+@import '../../appStyles/colors.scss' ;
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+  
+
+  .toolbar
+  {
+      width: 100%;
+      height: 10%;
+      background-color: white;
+
+  .image
+  {
+    width :3%;
+    height: 70%;
+    padding-right: 2%; 
+    transform: scaleX(0.9) scaleY(0.9);
+   }
+
+  .toolbarHeading
+  {
+    font-size: 100%;
+    padding-right: 5%;  
+    transform: scaleY(0.9); 
+  }
+  .searchbar
+  {
+    width : 55%;
+    transform: scaleY(0.60); 
+    font-size: 20px;
+    height: 40%;
+    margin-right: 5%;
+    margin-left: 2%;
+    margin-top: -3%;
+    .searchtype 
+    {
+      width : 100%;
+      height: 100%;
+      outline: none;
+      border : none;
+      font-size: 18px;
+   
+    }
+    }
+.toolbarButton
+{
+  width : 3%;
+}
+}
+
+.toolnote
+{
+  height : 100%;
+  width: 100%;
+  display: flex;
+  
+.maincontainer
+{ 
+  height: 100%; 
+  
+  .sidebar
+  {
+    width : 250px;
+   a:hover
+    {
+        background-color :$lightGrey;
+        color : $black;
+        border-radius:0px 25px 25px 0px;
+    }
+    .sidebaricons
+    {
+
+   transform: scaleX(0.95) scaleY(0.95);
+   padding: 5%;
+   padding-right: 32px;
+   padding-left: 21px;
+
+    }
+  }
+}
+.cardanddisplay{
+  display: flex;
+}
+
+}
+}
+
+
+.image-container {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+  }
+}
+
+.message {
+  position: absolute;
+  width: 90%;
+  top: 54%;
+  left: 50%;
+  transform: translate(-50%, 100%);
+  opacity: 1;
+}
+
+.accountmatcard{
+  height: 165px;
+  width: 250px;
+    }
+
+
+.labelHeadingToolbar
+{
+
+  transform: scaleX(0.9) scaleY(0.8)
+}
+
+.cd { 
+  background-color: #feefc3;
+  opacity: 1 !important;
+  border-radius: 0px 25px 25px 0px; 
+outline: none;}
+
+.sidebaricons{
+  padding-left: 15px;
+ 
+}

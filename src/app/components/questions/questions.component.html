@@ -1,0 +1,24 @@
+<div>
+<p>
+  {{noteTitle}}
+</p>
+<p>
+   {{noteDescription}}
+  </p>
+<mat-divider></mat-divider>
+<!-- <div *ngIf="questionAndAnswersArrayLength == 0"> -->
+  <div>
+<p>Ask a Question</p>
+<input [(ngModel)]="question" placeholder="Type something"><br><br>
+<button (click)=askQuestion(noteData.id)>Ask</button> <br><br>
+<mat-divider></mat-divider>
+</div>
+<div [froalaEditor]>Hello, Froala!</div>
+
+<!-- <div *ngIf="questionAndAnswersArrayLength != 0"> -->
+  <div>
+ <p>Question Asked</p>
+  <p>{{noteData.questionAndAnswerNotes[0].message}}</p>
+    <mat-divider></mat-divider>
+    </div>
+</div>
