@@ -3,6 +3,7 @@ import { User } from '../../models/register.model';
 import { FormControl, Validators } from '@angular/forms';
 import {UserServiceService} from '../../services/userService/user-service.service'
 import { Inject } from '@angular/core';
+import { DataService } from 'src/app/services/dataService/data.service';
 
 @Component({
   selector: 'app-register',
@@ -13,8 +14,10 @@ export class RegisterComponent implements OnInit {
   response: any;
   result: any;
   userObj: User = new User();
+  pack: string;
 
-  constructor(@Inject(UserServiceService) private svc: UserServiceService) { }
+
+  constructor(@Inject(UserServiceService) private svc: UserServiceService,@Inject(DataService) public dataSvc: DataService) { }
   public firstName = new FormControl('', [Validators.required]);
   public lastName = new FormControl('', [Validators.required]);
   public email = new FormControl('', [Validators.required, Validators.email]);
@@ -55,6 +58,10 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dataSvc.currentMessage.subscribe((res: any) => {
+      this.pack = res;
+    console.log("pack....",this.pack);
+    })
   }
 
   onRegister() {
@@ -63,7 +70,7 @@ export class RegisterComponent implements OnInit {
       lastName: this.lastName.value,
       email: this.email.value,
       password: this.password.value,
-      service: "advance"
+      service: this.pack,
     }
 
     this.result = this.svc.register(this.userObj);

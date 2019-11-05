@@ -54,10 +54,6 @@ export class NotesComponent implements OnInit {
         this.datasvc.changeMessage("Hello from Sibling")
       });
       this.toggle();
-      // this.titleMo = "";
-      // this.descriptionMo = "";
-      // this.message = "";
-      // this.reminderMessage= "";
     }
   }
 

@@ -5,7 +5,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatCardModule} from '@angular/material/card';
-import { MatMenuModule, MatTabsModule, MatChipsModule, MatDatepicker, MatNativeDateModule, MatDatepickerModule, MatSelectModule, MatAutocompleteModule } from '@angular/material';
+import { MatMenuModule, MatTabsModule, MatChipsModule, MatDatepicker, MatNativeDateModule, MatDatepickerModule, MatSelectModule, MatAutocompleteModule, MatRadioModule } from '@angular/material';
 import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule,MatDialogModule } from  '@angular/material';
 
 @NgModule({
@@ -27,7 +27,8 @@ MatSidenavModule,
  MatDatepickerModule,
  MatNativeDateModule,
  MatSelectModule,
- MatAutocompleteModule
+ MatAutocompleteModule,
+ MatRadioModule
 ],
 
 exports: [
@@ -48,7 +49,8 @@ exports: [
      MatDatepickerModule,
      MatNativeDateModule,
      MatSelectModule,
-     MatAutocompleteModule
+     MatAutocompleteModule,
+     MatRadioModule
 ],
 })
 export class AppMaterialModule { }

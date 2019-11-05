@@ -1,5 +1,5 @@
 <div *ngIf="view == 'grid'" fxLayout="row wrap" fxLayout.xs="row wrap" fxLayout.sm="row wrap" class="container">
-  <mat-card fxFlex="26" class="dcard" *ngFor="let note of display" [ngStyle]="{background : note.color}" fxFlex.xs="100"
+  <mat-card fxFlex="25" class="dcard" *ngFor="let note of display" [ngStyle]="{background : note.color}" fxFlex.xs="100"
     fxFlex.sm="46">
     <div (click)="openDialog(note)">
       <p style=" word-break: break-all">{{note.title}}</p>
@@ -19,7 +19,7 @@
 
     <div *ngFor="let reminder of note.reminder">
       <mat-chip-list>
-        <mat-chip class="chips">{{reminder}}
+        <mat-chip class="chips">{{reminder | date : 'short'}}
           <button class="hide" matSuffix mat-icon-button (click)="deleteReminderFromNotes(note.id,reminder)">
             <mat-icon>close</mat-icon>
           </button>
@@ -34,6 +34,13 @@
     <div fxLayoutAlign="space-around center" class="hide">
       <app-toolbar (messageEvent)="receiveMessage($event)" [noteid]="note.id" [function]="component"></app-toolbar>
     </div>
+    
+    <div *ngIf="note.questionAndAnswerNotes.length>0">
+        <mat-divider></mat-divider>   
+        <br>
+        Question Asked
+        <div innerHTML="{{note.questionAndAnswerNotes[0].message}}"></div>
+      </div>
   </mat-card>
 </div>
 
@@ -61,7 +68,7 @@
   
       <div *ngFor="let reminder of note.reminder">
         <mat-chip-list>
-          <mat-chip class="chips">{{reminder}}
+          <mat-chip class="chips">{{reminder | date : 'short'}}
             <button class="hide" matSuffix mat-icon-button (click)="deleteReminderFromNotes(note.id,reminder)">
               <mat-icon>close</mat-icon>
             </button>
@@ -74,8 +81,16 @@
       </div>
   
   
-      <div fxLayoutAlign="center center" class="hide">
-        <app-toolbar (messageEvent)="receiveMessage($event)" [noteid]="note.id" [function]="component"></app-toolbar>
+      <div fxLayoutAlign="start center" class="hide">
+        <app-toolbar fxFlex="60" (messageEvent)="receiveMessage($event)" [noteid]="note.id" [function]="component"></app-toolbar>
       </div>
+      <div *ngIf="note.questionAndAnswerNotes.length>0">
+          <mat-divider></mat-divider> 
+          <br>  
+          Question Asked
+          <div innerHTML="{{note.questionAndAnswerNotes[0].message}}"></div>
+        </div>
     </mat-card>
+
+
   </div>

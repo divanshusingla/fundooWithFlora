@@ -1,24 +1,31 @@
 <div>
-<p>
-  {{noteTitle}}
-</p>
-<p>
-   {{noteDescription}}
+  <p>
+    {{noteTitle}}
   </p>
-<mat-divider></mat-divider>
-<!-- <div *ngIf="questionAndAnswersArrayLength == 0"> -->
-  <div>
-<p>Ask a Question</p>
-<input [(ngModel)]="question" placeholder="Type something"><br><br>
-<button (click)=askQuestion(noteData.id)>Ask</button> <br><br>
-<mat-divider></mat-divider>
-</div>
-<div [froalaEditor]>Hello, Froala!</div>
-
-<!-- <div *ngIf="questionAndAnswersArrayLength != 0"> -->
-  <div>
- <p>Question Asked</p>
-  <p>{{noteData.questionAndAnswerNotes[0].message}}</p>
+  <p>
+    {{noteDescription}}
+  </p>
+  <mat-divider></mat-divider>
+  <div *ngIf="questionAndAnswersArrayLength =='0' ">
+    <p>Ask a Question</p>
+    <div [froalaEditor] [(froalaModel)]="question"></div>
+    <button (click)=askQuestion(noteData.id)>Submit</button> <br><br>
     <mat-divider></mat-divider>
+  </div>
+
+  <div *ngIf="questionAndAnswersArrayLength != '0'">
+    <p>Question Asked</p>
+    <div *ngFor="let notequestion of noteData.questionAndAnswerNotes">
+      {{notequestion.user.firstName}} {{notequestion.user.lastName}}
+      <p [innerHTML]=notequestion.message>{{notequestion.message}}</p>
+     
+      <button mat-icon-button (click)="replyToggle()">
+        <mat-icon>reply</mat-icon>
+      </button>
+      <div *ngIf="replyShow == true">
+        <div [froalaEditor]></div>
+        <button>Submit</button>
+      </div>
+      <mat-divider></mat-divider>
     </div>
-</div>
+  </div>

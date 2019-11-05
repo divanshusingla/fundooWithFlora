@@ -27,7 +27,6 @@ export class ForgotPasswordComponent implements OnInit {
   onForgot() {
     this.userObj = {
       email: this.email.value,
-      service: "basic"
     }
     this.result = this.svc.forgotPassword(this.userObj);
       this.result.subscribe((response) => {

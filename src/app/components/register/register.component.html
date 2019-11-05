@@ -44,6 +44,11 @@
       pattern="{{password.value}}" required minlength="8">
       <mat-error *ngIf="confirmPassword.invalid">{{ConfirmPasswordInvalidMessage()}} </mat-error>
     </mat-form-field>
+
+    <mat-radio-group [(ngModel)]="pack">
+        <mat-radio-button value="Advance">Advance</mat-radio-button>
+        <mat-radio-button value="Basic">Basic</mat-radio-button>
+      </mat-radio-group>
     
    <div style="width:100%" fxLayoutAlign="space-around center">
     <button mat-raised-button color="primary" class="button" (click)="onRegister()" >Register</button>

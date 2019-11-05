@@ -16,7 +16,8 @@ export class QuestionsComponent implements OnInit {
   question : any;
   noteTitle : any;
   noteDescription : any;
-  questionAndAnswersArrayLength : any;
+  replyShow = false;
+  questionAndAnswersArrayLength : any ;
   constructor(@Inject(ActivatedRoute) private route: ActivatedRoute,@Inject(NoteServiceService) private svc: NoteServiceService,@Inject(DataService) public dataSvc: DataService) {
    }
 
@@ -25,6 +26,10 @@ export class QuestionsComponent implements OnInit {
     this.getNoteData(this.idOfNote);
   }
 
+  replyToggle()
+  {
+    this.replyShow = !this.replyShow;
+  }
 
   getNoteData(id)
   {
@@ -36,7 +41,7 @@ export class QuestionsComponent implements OnInit {
       console.log("the result is of notedata ", this.noteData);
       this.noteTitle = this.noteData.title;
       this.noteDescription = this.noteData.description;
-      this.questionAndAnswersArrayLength = this.noteData.questionAndAnswerNotes.length();
+      this.questionAndAnswersArrayLength = this.noteData.questionAndAnswerNotes.length;
     });
   }
 

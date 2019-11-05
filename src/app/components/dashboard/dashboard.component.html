@@ -4,7 +4,7 @@
       <mat-icon>menu</mat-icon>
     </button>
     <img src="../../../assets/images/dashboardIcon.png" class="image">
-    <p class="toolbarHeading">MyNotes</p>
+    <p class="toolbarHeading">Keep</p>
 
     <!-- <mat-card class="searchbar" fxHide.xs="true" fxShow="true">
         <button><mat-icon matPrefix>search</mat-icon></button>
@@ -62,7 +62,7 @@
   <div class="toolnote" fxFlex="90">
  <div>
     <mat-drawer-container class="maincontainer" fxHide.xs="true" fxShow="true">
-      <mat-drawer #drawer mode="side" class="sidebar" opened>
+      <mat-drawer #drawer  mode="side" class="sidebar" opened>
         <mat-nav-list fxLayout="column" fxLayoutGap="5px">
           <a routerLinkActive="cd" routerLink="/note" fxLayoutAlign="start center">
             <mat-icon class="sidebaricons" >description</mat-icon>Notes
@@ -92,7 +92,7 @@
       </mat-drawer>
     </mat-drawer-container>
   </div>
-    <div fxFlex="80" fxFlex.xs="100" fxFlex.sm="100"> 
+    <div style="padding-left: 10%;padding-right : 10%" fxFlex="100" fxFlex.xs="100" fxFlex.sm="100"> 
       <router-outlet></router-outlet>
     </div>
   </div>
