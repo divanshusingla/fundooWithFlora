@@ -4,6 +4,7 @@ import { Login } from '../../models/login.model';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {AuthServiceService} from '../../services/authService/auth-service.service'
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
   result: any;
   userObj: Login = new Login();
 
-  constructor(@Inject(UserServiceService)private svc: UserServiceService,@Inject(Router)private router:Router,@Inject(AuthServiceService)private auth: AuthServiceService) { }
+  constructor(@Inject(MatSnackBar) private _snackBar: MatSnackBar,@Inject(UserServiceService)private svc: UserServiceService,@Inject(Router)private router:Router,@Inject(AuthServiceService)private auth: AuthServiceService) { }
   public email = new FormControl('', [Validators.required, Validators.email]);
   public password = new FormControl('', [Validators.required]);
 
@@ -37,7 +38,6 @@ export class LoginComponent implements OnInit {
     this.userObj = {
       email: this.email.value,
       password: this.password.value,
-      service: "basic"
     }
     this.result=this.svc.login(this.userObj)
       this.result.subscribe((response) => {
@@ -53,8 +53,15 @@ export class LoginComponent implements OnInit {
       }, (error) =>
       {
         console.log(error);
+        this.openSnackBar('Entered credientiels are wrong',"Close");
         
       })
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 
 }

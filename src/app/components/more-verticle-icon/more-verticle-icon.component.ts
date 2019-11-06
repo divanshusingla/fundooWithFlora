@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, Input, Output, EventEmitter } from '@angular
 import { NoteServiceService } from 'src/app/services/noteService/note-service.service';
 import { DataService } from 'src/app/services/dataService/data.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-more-verticle-icon',
@@ -17,7 +18,7 @@ export class MoreVerticleIconComponent implements OnInit {
   message: any;
   response: any;
   labelObj: any;
-  constructor(@Inject(Router)private router : Router,@Inject(NoteServiceService) private svc: NoteServiceService, @Inject(DataService) private dataSvc: DataService) { }
+  constructor(@Inject(MatSnackBar) private _snackBar: MatSnackBar,@Inject(Router)private router : Router,@Inject(NoteServiceService) private svc: NoteServiceService, @Inject(DataService) private dataSvc: DataService) { }
 
   ngOnInit() {
     this.getLabelList();
@@ -48,6 +49,7 @@ export class MoreVerticleIconComponent implements OnInit {
       this.response = response;
       // console.log("the result is ", this.response);
     });
+    this.openSnackBar('note is restored',"Close");
     this.dataSvc.changeMessage("note is restored");
   }
 
@@ -62,6 +64,7 @@ export class MoreVerticleIconComponent implements OnInit {
       this.response = response;
       // console.log("the result is ", this.response);
     });
+    this.openSnackBar('note is forever deleted',"Close");
     this.dataSvc.changeMessage("note is deleted forever ");
   }
 
@@ -91,4 +94,14 @@ export class MoreVerticleIconComponent implements OnInit {
       // console.log("the result is in get list", this.response);
     });
   }
+
+
+
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
+
 }

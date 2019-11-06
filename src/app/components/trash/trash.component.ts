@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { NoteServiceService } from 'src/app/services/noteService/note-service.service';
 import {Note} from '../../models/note.model';
 import {DataService} from 'src/app/services/dataService/data.service';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import { DialogNoteComponent } from '../dialog-note/dialog-note.component';
 
 @Component({
@@ -19,7 +19,7 @@ export class TrashComponent implements OnInit {
   trashNotes : any;
   component = "trash";
 
-    constructor(@Inject(NoteServiceService) private svc : NoteServiceService,@Inject(DataService) private dataSvc : DataService,@Inject(MatDialog) private dialog : MatDialog) { }
+    constructor(@Inject(MatSnackBar) private _snackBar: MatSnackBar,@Inject(NoteServiceService) private svc : NoteServiceService,@Inject(DataService) private dataSvc : DataService,@Inject(MatDialog) private dialog : MatDialog) { }
     ngOnInit() {
       this.getNoteData();
       this.dataSvc.currentMessage.subscribe((res:any)=>
@@ -68,34 +68,44 @@ export class TrashComponent implements OnInit {
     })
   }
 
-  restoreNote(noteid)
-  {
-    let restore = 
-    {
-      isDeleted : false,
-      noteIdList : [noteid]
-    }
-    this.result = this.svc.trashNotes(restore)
-    this.result.subscribe((response) => {
-      this.response = response;
-      console.log("the result is ", this.response);
-    });
-    this.dataSvc.changeMessage("message from dialog");
-  }
+  // restoreNote(noteid)
+  // {
+  //   let restore = 
+  //   {
+  //     isDeleted : false,
+  //     noteIdList : [noteid]
+  //   }
+  //   this.result = this.svc.trashNotes(restore)
+  //   this.result.subscribe((response) => {
+  //     this.response = response;
+  //     console.log("the result is ", this.response);
+  //   });
+  //   this.openSnackBar('Note is restored',"Close");
+  //   this.dataSvc.changeMessage("message from dialog");
+  // }
 
-  deleteForever(noteid)
-  {
-    let delFor = 
-    {
-      isDeleted : true,
-      noteIdList : [noteid]
-    }
-    this.result = this.svc.deleteForever(delFor)
-    this.result.subscribe((response) => {
-      this.response = response;
-      console.log("the result is ", this.response);
-    });
-    this.dataSvc.changeMessage("message from dialog");
-  }
+  // deleteForever(noteid)
+  // {
+  //   let delFor = 
+  //   {
+  //     isDeleted : true,
+  //     noteIdList : [noteid]
+  //   }
+  //   this.result = this.svc.deleteForever(delFor)
+  //   this.result.subscribe((response) => {
+  //     this.response = response;
+  //     console.log("the result is ", this.response);
+  //   });
+  //   this.openSnackBar('Note is deleted',"Close");
+  //   this.dataSvc.changeMessage("message from dialog");
+  // }
   
+  // openSnackBar(message: string, action: string) {
+  //   this._snackBar.open(message, action, {
+  //     duration: 2000,
+  //   });
+  // }
+
+
+
 }

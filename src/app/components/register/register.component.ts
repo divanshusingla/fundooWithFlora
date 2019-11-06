@@ -4,6 +4,7 @@ import { FormControl, Validators } from '@angular/forms';
 import {UserServiceService} from '../../services/userService/user-service.service'
 import { Inject } from '@angular/core';
 import { DataService } from 'src/app/services/dataService/data.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +18,7 @@ export class RegisterComponent implements OnInit {
   pack: string;
 
 
-  constructor(@Inject(UserServiceService) private svc: UserServiceService,@Inject(DataService) public dataSvc: DataService) { }
+  constructor(@Inject(MatSnackBar) private _snackBar: MatSnackBar,@Inject(UserServiceService) private svc: UserServiceService,@Inject(DataService) public dataSvc: DataService) { }
   public firstName = new FormControl('', [Validators.required]);
   public lastName = new FormControl('', [Validators.required]);
   public email = new FormControl('', [Validators.required, Validators.email]);
@@ -77,8 +78,19 @@ export class RegisterComponent implements OnInit {
     this.result.subscribe((response) => {
       this.response = response;
       console.log(this.response);
+    },(error)=>{
+      this.openSnackBar('Entries are wrong',"Close");
     })
   }
 
-}
+
+openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
+
+
+  }
+
 

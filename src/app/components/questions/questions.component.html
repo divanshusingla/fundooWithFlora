@@ -14,18 +14,45 @@
   </div>
 
   <div *ngIf="questionAndAnswersArrayLength != '0'">
-    <p>Question Asked</p>
-    <div *ngFor="let notequestion of noteData.questionAndAnswerNotes">
+    <br>
+    Question Asked
+    <div innerHTML="{{noteData.questionAndAnswerNotes[0].message}}"></div>
+    <mat-divider></mat-divider>
+    <!-- <div *ngFor="let notequestion of noteData.questionAndAnswerNotes">
+      <br>
       {{notequestion.user.firstName}} {{notequestion.user.lastName}}
       <p [innerHTML]=notequestion.message>{{notequestion.message}}</p>
-     
-      <button mat-icon-button (click)="replyToggle()">
+      <button mat-icon-button (click)="replyToggle(notequestion.id)">
         <mat-icon>reply</mat-icon>
       </button>
-      <div *ngIf="replyShow == true">
-        <div [froalaEditor]></div>
-        <button>Submit</button>
+      <div *ngIf="replyShow == notequestion.id && toggleFloara== false">
+        <div [froalaEditor] [(froalaModel)]="replyOfQuestion"></div>
+        <button (click)=replyQuestion(notequestion.id)>Submit</button>
       </div>
       <mat-divider></mat-divider>
+    </div> -->
+    <!-- ======================================================================================================= -->
+
+    <div *ngFor="let notequestion of noteData.questionAndAnswerNotes">
+      <div *ngFor="let notequestion1 of noteData.questionAndAnswerNotes">
+        <div *ngIf=" questionAndAnswersArrayLength>0 || notequestion.id == notequestion1.parentId">
+          <br>
+          {{notequestion.user.firstName}} {{notequestion.user.lastName}}
+          <p [innerHTML]=notequestion.message>{{notequestion.message}}</p>
+          <button mat-icon-button (click)="replyToggle(notequestion.id)">
+            <mat-icon>reply</mat-icon>
+          </button>
+          <div *ngIf="replyShow == notequestion.id && toggleFloara== false">
+            <div [froalaEditor] [(froalaModel)]="replyOfQuestion"></div>
+            <button (click)=replyQuestion(notequestion.id)>Submit</button>
+          </div>
+          <mat-divider></mat-divider>
+        </div>
+      </div>
     </div>
+    <!-- ======================================================================== -->
+
+
+
+
   </div>

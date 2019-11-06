@@ -43,7 +43,6 @@ export class NotesComponent implements OnInit {
       this.note = {
         title: this.title.value,
         description: this.description.value,
-        service: "basic",
         color : this.message,
         reminder : this.reminderMessage,
       }

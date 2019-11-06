@@ -3,6 +3,7 @@ import { Forgot } from '../../models/forgot.model';
 import { FormControl, Validators } from '@angular/forms';
 import {UserServiceService} from '../../services/userService/user-service.service'
 import { Inject } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-forgot-password',
@@ -14,7 +15,7 @@ export class ForgotPasswordComponent implements OnInit {
   result: any;
   userObj: Forgot = new Forgot();
 
-  constructor(@Inject(UserServiceService) private svc: UserServiceService) { };
+  constructor(@Inject(MatSnackBar) private _snackBar: MatSnackBar,@Inject(UserServiceService) private svc: UserServiceService) { };
   public email = new FormControl('', [Validators.required]);
 
   getEmailInvalidMessage() {
@@ -31,8 +32,17 @@ export class ForgotPasswordComponent implements OnInit {
     this.result = this.svc.forgotPassword(this.userObj);
       this.result.subscribe((response) => {
         this.response = response;
+        this.openSnackBar('Reset link send to the email. Please check. ',"Close");
         console.log(this.response);
+      },(error)=>{
+        this.openSnackBar('Email entered is wrong',"Close");
       })
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 
 }
