@@ -98,4 +98,8 @@ export class DashboardComponent implements OnInit {
   {
     this.dataSvc.changeMessage(data); 
   }
+
+  goToCart(){
+    this.router.navigate(['/addToCart']);
+  }
 }

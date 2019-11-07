@@ -16,6 +16,8 @@ export class RegisterComponent implements OnInit {
   result: any;
   userObj: User = new User();
   pack: string;
+  productid : any;
+  cartid : any;
 
 
   constructor(@Inject(MatSnackBar) private _snackBar: MatSnackBar,@Inject(UserServiceService) private svc: UserServiceService,@Inject(DataService) public dataSvc: DataService) { }
@@ -63,6 +65,7 @@ export class RegisterComponent implements OnInit {
       this.pack = res;
     console.log("pack....",this.pack);
     })
+    this.getCartId();
   }
 
   onRegister() {
@@ -72,8 +75,10 @@ export class RegisterComponent implements OnInit {
       email: this.email.value,
       password: this.password.value,
       service: this.pack,
+      cartId : this.cartid,
     }
-
+    console.log("user objkect register component ", this.userObj);
+    
     this.result = this.svc.register(this.userObj);
     this.result.subscribe((response) => {
       this.response = response;
@@ -90,6 +95,29 @@ openSnackBar(message: string, action: string) {
     });
   }
 
+
+
+  getCartId(){
+    if(this.pack=="basic"){
+      this.productid = "5bfe362b53c3df0040d852a7"
+    }else{
+      this.productid = "5bfe361553c3df0040d852a6"
+    }
+  
+      let data ={
+        productId: this.productid
+      }
+      //console.log("cartid form add to cart",data);
+      this.svc.addToCartUserService(data).subscribe((response: any) => {
+        this.cartid = response.data.details.id
+        console.log(response);
+        console.log(this.cartid);
+        
+      },(error)=>{
+        console.log("errorrrrr...",error);
+        
+      })
+    }
 
   }
 

@@ -1,0 +1,143 @@
+<!-- Advance -->
+<div *ngIf="type=='5bfe361553c3df0040d852a6'">
+
+
+  <mat-horizontal-stepper #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <ng-template matStepLabel>Upgrade Package</ng-template>
+      <h4>Shopping Cart</h4>
+      <hr>
+      <table style="width:100%">
+        <tr>
+          <td>$99 per month
+            advance
+          </td>
+          <td>advance Pack Details
+            Ability to add title, description, images, labels, checklist and colors</td>
+          <td>price $ 99</td>
+          <td>validity per month</td>
+          <td><button mat-button matStepperNext>Proceed to checkout</button></td>
+        </tr>
+      </table>
+      <hr>
+      <h5>Subtotal ( 1 item ): $99</h5>
+
+    </mat-step>
+
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Review</ng-template>
+        <h4>Review your Order</h4>
+        <hr>
+        <table style="width:100%">
+          <tr>
+            <td>$99 per month
+              advance
+            </td>
+            <td>advance Pack Details
+              Ability to add title, description, images, labels, checklist and colors</td>
+            <td>price $ 99</td>
+            <td>validity per month</td>
+            <td><button mat-button matStepperNext (click)=placeOrder()>Place your order</button></td>
+          </tr>
+        </table>
+        <hr>
+        <input [(formControl)]="address" formControlName="secondCtrl" required>
+        payment method
+        Cash on Delivery
+      </form>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Purchase</ng-template>
+      <h4>Order List</h4>
+      <hr>
+      <table style="width:100%">
+        <tr>
+          <td>$99 per month
+            advance
+          </td>
+          <td>advance Pack Details
+            Ability to add title, description, images, labels, checklist and colors</td>
+          <td>$ 99 per month</td>
+        </tr>
+      </table>
+      <hr>
+    </mat-step>
+
+  </mat-horizontal-stepper>
+</div>
+
+<!-- Basic -->
+<div *ngIf="type=='5bfe362b53c3df0040d852a7'">
+  <mat-horizontal-stepper linear="false" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+
+      <ng-template matStepLabel>Upgrade Package</ng-template>
+      <h4>Shopping Cart</h4>
+      <hr>
+      <table style="width:100%">
+        <tr>
+          <td>$49 per month
+            Basic
+          </td>
+          <td>Basic Pack Details
+            Ability to add title, description</td>
+          <td>price $ 49</td>
+          <td>validity per month</td>
+          <td><button mat-button matStepperNext>Proceed to checkout</button></td>
+        </tr>
+      </table>
+      <hr>
+      <h5>Subtotal ( 1 item ): $49</h5>
+
+    </mat-step>
+
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Review</ng-template>
+        <h4>Review your Order</h4>
+        <hr>
+        <table style="width:100%">
+          <tr>
+            <td>$49 per month
+              Basic
+            </td>
+            <td>Basic Pack Details
+              Ability to add title, description</td>
+            <td>price $ 49</td>
+            <td>validity per month</td>
+            <td><button mat-button matStepperNext (click)=placeOrder()>Place your order</button></td>
+          </tr>
+        </table>
+        <hr>
+        <input [(formControl)]="address" formControlName="secondCtrl" required>
+        payment method
+        Cash on Delivery
+      </form>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Purchase</ng-template>
+      <h4>Order List</h4>
+      <hr>
+      <table style="width:100%">
+        <tr>
+          <td>$49 per month
+            Basic
+          </td>
+          <td>Basic Pack Details
+            Ability to add title, description</td>
+          <td>$ 49 per month</td>
+        </tr>
+      </table>
+      <hr>
+    </mat-step>
+
+  </mat-horizontal-stepper>
+</div>
+
+<!-- Nothing -->
+<div *ngIf="type!='5bfe362b53c3df0040d852a7' && type!='5bfe361553c3df0040d852a6'">
+  <h1>Your cart is Empty.</h1>
+</div>

@@ -15,6 +15,7 @@ import { LabelComponent } from './components/label/label.component';
 import { ReminderComponent } from './components/reminder/reminder.component';
 import { QuestionsComponent } from './components/questions/questions.component';
 import { CartComponent } from './components/cart/cart.component';
+import { AddToCartComponent } from './components/add-to-cart/add-to-cart.component';
 
 const routes: Route[] = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -22,10 +23,12 @@ const routes: Route[] = [
   { path: 'registration', component: RegisterComponent },
   { path: 'resetpassword/:token', component: ResetPasswordComponent },
   { path: 'forgot', component: ForgotPasswordComponent },
+  { path: 'cart', component: CartComponent },
   {
     path: '', component: DashboardComponent, canActivate: [AuthGuardGuard],
     children: [
       { path: 'note', component: NoteMainComponent },
+      { path: 'addToCart', component: AddToCartComponent },
       { path: 'label/:label', component: LabelComponent },
       { path: 'archive', component: ArchiveComponent },
       { path: 'reminder', component: ReminderComponent },
@@ -36,7 +39,6 @@ const routes: Route[] = [
 
     ]
   },
-  { path: 'cart', component: CartComponent },
   { path: '**', component: PagenotfoundComponent },
 
 

@@ -43,6 +43,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { QuestionsComponent } from './components/questions/questions.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { CartComponent } from './components/cart/cart.component';
+import { AddToCartComponent } from './components/add-to-cart/add-to-cart.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,6 +77,7 @@ import { CartComponent } from './components/cart/cart.component';
     CollaboratorComponent,
     QuestionsComponent,
     CartComponent,
+    AddToCartComponent,
   ],
   entryComponents : [DialogNoteComponent,EditDialogComponent,ImageDialogComponent,CollaboratorComponent],
   imports: [

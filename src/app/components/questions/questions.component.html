@@ -18,7 +18,7 @@
     Question Asked
     <div innerHTML="{{noteData.questionAndAnswerNotes[0].message}}"></div>
     <mat-divider></mat-divider>
-    <!-- <div *ngFor="let notequestion of noteData.questionAndAnswerNotes">
+    <div *ngFor="let notequestion of noteData.questionAndAnswerNotes">
       <br>
       {{notequestion.user.firstName}} {{notequestion.user.lastName}}
       <p [innerHTML]=notequestion.message>{{notequestion.message}}</p>
@@ -30,10 +30,10 @@
         <button (click)=replyQuestion(notequestion.id)>Submit</button>
       </div>
       <mat-divider></mat-divider>
-    </div> -->
+    </div>
     <!-- ======================================================================================================= -->
 
-    <div *ngFor="let notequestion of noteData.questionAndAnswerNotes">
+    <!-- <div *ngFor="let notequestion of noteData.questionAndAnswerNotes">
       <div *ngFor="let notequestion1 of noteData.questionAndAnswerNotes">
         <div *ngIf=" questionAndAnswersArrayLength>0 || notequestion.id == notequestion1.parentId">
           <br>
@@ -49,7 +49,7 @@
           <mat-divider></mat-divider>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- ======================================================================== -->
 
 

@@ -58,6 +58,24 @@ response : any;
     return formBody.join('&');
   }
 
+  addToCartUserService(data){
+    let url= 'productcarts/addToCart'
+    let auth = false;
+    return this.svc.post(data,url,auth);
+  }
+
+
+  placeOrderUserService(data){
+    let url= 'productcarts/placeOrder'
+    let auth = true;
+    return this.svc.post(data,url,auth);
+  }
+
+  myCartUserService(){
+    let url= 'productcarts/myCart'
+    let auth = true;
+    return this.svc.get(url,auth);
+  }
 
 
 
