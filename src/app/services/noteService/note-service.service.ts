@@ -161,6 +161,12 @@ export class NoteServiceService {
 
   }
 
+  likeAnswer(data)
+  {
+    let url = 'questionAndAnswerNotes/like/' + data.id;
+    let auth = true;
+    return this.svc.post(data, url, auth);
+  }
 
 
 

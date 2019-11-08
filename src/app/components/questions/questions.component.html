@@ -13,46 +13,65 @@
     <mat-divider></mat-divider>
   </div>
 
+
+
+
+  <!-- Question Asked  -->
   <div *ngIf="questionAndAnswersArrayLength != '0'">
     <br>
     Question Asked
     <div innerHTML="{{noteData.questionAndAnswerNotes[0].message}}"></div>
     <mat-divider></mat-divider>
+
+
+
+
     <div *ngFor="let notequestion of noteData.questionAndAnswerNotes">
-      <br>
-      {{notequestion.user.firstName}} {{notequestion.user.lastName}}
-      <p [innerHTML]=notequestion.message>{{notequestion.message}}</p>
-      <button mat-icon-button (click)="replyToggle(notequestion.id)">
-        <mat-icon>reply</mat-icon>
-      </button>
-      <div *ngIf="replyShow == notequestion.id && toggleFloara== false">
-        <div [froalaEditor] [(froalaModel)]="replyOfQuestion"></div>
-        <button (click)=replyQuestion(notequestion.id)>Submit</button>
-      </div>
-      <mat-divider></mat-divider>
-    </div>
-    <!-- ======================================================================================================= -->
-
-    <!-- <div *ngFor="let notequestion of noteData.questionAndAnswerNotes">
-      <div *ngFor="let notequestion1 of noteData.questionAndAnswerNotes">
-        <div *ngIf=" questionAndAnswersArrayLength>0 || notequestion.id == notequestion1.parentId">
-          <br>
-          {{notequestion.user.firstName}} {{notequestion.user.lastName}}
-          <p [innerHTML]=notequestion.message>{{notequestion.message}}</p>
-          <button mat-icon-button (click)="replyToggle(notequestion.id)">
-            <mat-icon>reply</mat-icon>
+      <div *ngIf="notequestion.isApproved==true && notequestion.parentId==noteData.questionAndAnswerNotes[0].id">
+        <div>
+        {{notequestion.user.firstName}} {{notequestion.user.lastName}}
+        <button mat-icon-button (click)="replyToggle(notequestion.id)">
+          <mat-icon>reply</mat-icon>
+        </button>
+        <button mat-icon-button (click)="likeAnswer(notequestion.id)">
+            <mat-icon>thumb_up_alt</mat-icon>
           </button>
-          <div *ngIf="replyShow == notequestion.id && toggleFloara== false">
-            <div [froalaEditor] [(froalaModel)]="replyOfQuestion"></div>
-            <button (click)=replyQuestion(notequestion.id)>Submit</button>
+          <button mat-icon-button (click)="dislikeAnswer(notequestion.id)">
+              <mat-icon>thumb_down_alt</mat-icon>
+            </button>
+                    <!-- count likes  -->
+        <div *ngIf="notequestion.like.length != 0 && countLikes(notequestion.id)">
+          <p> like like </p>
+          {{noOfLikes}}
           </div>
-          <mat-divider></mat-divider>
         </div>
+        <p [innerHTML]=notequestion.message>{{notequestion.message}}</p>
+
+
+
+         <!-- reply od Questions  -->
+        <div *ngFor="let question of noteData.questionAndAnswerNotes" class="reply">
+            <div *ngIf="question.isApproved==true && question.parentId==notequestion.id">
+              {{notequestion.user.firstName}} {{notequestion.user.lastName}}
+              <div innerHTML="{{question.message}}"></div>
+
+              
+
+
+            </div>
+          </div>
+        <div *ngIf="replyShow == notequestion.id && toggleFloara== false">
+          <div [froalaEditor] [(froalaModel)]="replyOfQuestion"></div>
+          <button (click)=replyQuestion(notequestion.id)>Submit</button>
+        </div>
+        <mat-divider></mat-divider>
       </div>
-    </div> -->
-    <!-- ======================================================================== -->
+    </div>
 
-
-
-
+    <div *ngIf="toggleFloara==true">
+      <div placeholder="Type something" [(froalaModel)]="replyOfQuestion" [froalaEditor]></div>
+      <div fxLayoutAlign="end center">
+        <button (click)=replyQuestion(noteData.questionAndAnswerNotes[0].id)>Ask</button>
+      </div>
+    </div>
   </div>

@@ -20,6 +20,7 @@ export class QuestionsComponent implements OnInit {
   replyShow: any;
   toggleFloara = true;
   questionAndAnswersArrayLength: any;
+  noOfLikes = 0;
   constructor(@Inject(ActivatedRoute) private route: ActivatedRoute, @Inject(NoteServiceService) private svc: NoteServiceService, @Inject(DataService) public dataSvc: DataService) {
   }
 
@@ -45,10 +46,6 @@ export class QuestionsComponent implements OnInit {
       }
     }
   }
-
-
-
-
 
   getNoteData(id) {
     console.log("sdfffffffffffffffffff", id);
@@ -89,11 +86,51 @@ export class QuestionsComponent implements OnInit {
       this.svc.replyQuestion(data, parentid).subscribe((res: any) => {
         this.getNoteData(this.idOfNote);
         //console.log(this.question);
-
         this.replyOfQuestion = "";
         console.log(res);
       })
       this.toggleFloara = true;
     }
   }
+
+  likeAnswer(id) {
+    let data = {
+      "like": true,
+      id: id
+    }
+    this.svc.likeAnswer(data).subscribe((res: any) => {
+      // console.log("response from the like answer ==============>>>>>>>>>>>", res);
+    });
+  this.countLikes(id);
+  this.getNoteData(this.idOfNote);
+  }
+
+  dislikeAnswer(id) {
+    let data = {
+      "like": false,
+      id: id
+    }
+    this.svc.likeAnswer(data).subscribe((res: any) => {
+      // console.log("response from the dislike answer ==============>>>>>>>>>>>", res);
+    });
+    this.countLikes(id);
+    this.getNoteData(this.idOfNote);
+  }
+
+
+  countLikes(questionId) {
+    this.noOfLikes = 0;
+    // console.log("enter in the count likes =>>>>>>>>>>>>>>>>>>>");
+    for (var i = 1; i < this.questionAndAnswersArrayLength; i++) {
+      if ((this.noteData.questionAndAnswerNotes[i].id == questionId) && (this.noteData.questionAndAnswerNotes[i].parentId == this.noteData.questionAndAnswerNotes[0].id)) {
+        for (var j = 0; j < this.noteData.questionAndAnswerNotes[i].like.length; j++) {
+          if (this.noteData.questionAndAnswerNotes[i].like[j].like == true) {
+            this.noOfLikes++;
+          }
+        }
+      }
+    }
+    return this.noOfLikes;
+  }
 }
+
