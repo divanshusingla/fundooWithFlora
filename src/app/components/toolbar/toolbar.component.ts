@@ -11,6 +11,7 @@ export class ToolbarComponent implements OnInit {
 @Input() function : any;
 @Output() messageEvent= new EventEmitter<string>();
 @Output() reminderEvent= new EventEmitter<string>();
+@Output() labelEvent= new EventEmitter<any>();
 
 
 message : any;
@@ -31,5 +32,11 @@ receiveReminderMessage($event) {
   this.reminderEvent.emit($event);
   console.log("reminder emitter",$event);
 }
+
+receiveLabelMessage($event) {
+  this.labelEvent.emit($event);
+  console.log("label emitter in the toolbar",$event);
+}
+
 
 }

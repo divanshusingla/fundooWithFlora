@@ -75,6 +75,19 @@ export class AppServiceService {
   }
 
 
+  postNote(data,url) :Observable<any>{
+    let  httpOptionsReset =
+     {
+       headers: new HttpHeaders({
+         'Content-type': 'application/x-www-form-urlencoded',
+         'Authorization': localStorage.getItem('id')
+       })
+     }
+     return this.http.post(this.baseUrl + url, data, httpOptionsReset);
+   }
+ 
+
+
   patch(data,url):Observable<any>
   {
     return this.http.patch(this.baseUrl + url, data, this.httpOptions);

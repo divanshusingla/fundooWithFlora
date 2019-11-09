@@ -5,7 +5,7 @@
     <app-color-plate-icon (messageEvent)="receiveMessage($event)"  [noteid]="noteid"></app-color-plate-icon>
     <app-panorma-icon></app-panorma-icon>
     <app-archive-icon [noteid]="noteid"></app-archive-icon>
-    <app-more-verticle-icon [mat]=function [noteid]="noteid"></app-more-verticle-icon>
+    <app-more-verticle-icon (labelEvent)="receiveLabelMessage($event)" [mat]=function [noteid]="noteid"></app-more-verticle-icon>
 </div>
 
 <div class="toolbar" fxLayoutAlign="space-between center"   *ngIf="function == 'archive'">

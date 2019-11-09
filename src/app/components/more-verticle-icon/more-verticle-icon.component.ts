@@ -13,16 +13,32 @@ export class MoreVerticleIconComponent implements OnInit {
   @Input() noteid: any;
   @Input() mat: any;
   @Output() messageEvent = new EventEmitter<string>();
+  @Output() labelEvent = new EventEmitter<any>();
   result: any;
   labels: any;
   message: any;
   response: any;
   labelObj: any;
+  show : any = false;
   constructor(@Inject(MatSnackBar) private _snackBar: MatSnackBar,@Inject(Router)private router : Router,@Inject(NoteServiceService) private svc: NoteServiceService, @Inject(DataService) private dataSvc: DataService) { }
 
   ngOnInit() {
     this.getLabelList();
   }
+
+
+  toggleShow(noteid)
+  {
+    this.show = !this.show;
+    let data = {
+      show : this.show,
+      noteId : noteid,
+    }
+    this.dataSvc.changeCheckbox(data);
+    // console.log("more vertical checkbox -------------------->>>>>>>>>>>>> ",data);
+   
+  }
+
 
   trashNotes(id) {
     let trash =
@@ -70,8 +86,9 @@ export class MoreVerticleIconComponent implements OnInit {
 
 
 
-  addLabels(id,nId) {
-    console.log("note", this.noteid)
+  addLabels(labeldata,id,nId) {
+    if(nId)
+    {    console.log("note", this.noteid)
     this.labelObj = {
       labelId: id,
       noteId: nId,
@@ -80,10 +97,21 @@ export class MoreVerticleIconComponent implements OnInit {
       // console.log(response);
       this.response = response;
       this.messageEvent.emit(this.message);
-    }, (error) => {
-      // console.log(error);
+      console.log("messag from kabel===>>>>>>>>>>>",this.response);
     });
     this.dataSvc.changeMessage("add label function is executed");
+  }
+
+  else{
+    let labelObj = 
+    {
+      label : labeldata,
+      labelId: id,
+    }
+    console.log("event is emitter d",labelObj);
+    // this.dataSvc.addLabel(labelObj);
+    this.labelEvent.emit(labelObj);
+  }
   }
 
   getLabelList() {

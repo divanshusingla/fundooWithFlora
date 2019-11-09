@@ -4,4 +4,7 @@ export class Note
    description : String;
    color : any;
    reminder : any;
+   labelIdList : any;
+   checklist : any;
+   collaberators : any;
 }

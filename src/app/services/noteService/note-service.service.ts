@@ -11,7 +11,7 @@ export class NoteServiceService {
   receiveNotesData(data): Observable<any> {
     let url = 'notes/addNotes';
     let auth = true;
-    return this.svc.post(data, url, auth);
+    return this.svc.postNote(this.getEncodedData(data), url);
   }
 
   getNotesData(): Observable<any> {
@@ -161,13 +161,45 @@ export class NoteServiceService {
 
   }
 
-  likeAnswer(data)
-  {
+  likeAnswer(data) {
     let url = 'questionAndAnswerNotes/like/' + data.id;
     let auth = true;
     return this.svc.post(data, url, auth);
   }
 
+
+  addItemToChecklist(data) {
+    let url = 'notes/' + data.noteId + '/checklist/add';
+    let auth = true;
+    return this.svc.post(data, url, auth);
+  }
+
+  deleteItemFromChecklist(data) {
+    let url = "notes/" + data.noteId + '/checklist/' + data.checklistId + '/remove';
+    let auth = true;
+    return this.svc.post(data, url, auth);
+
+  }
+
+
+  updateItemFromChecklist(data)
+  {
+    let url = "notes/" + data.noteId + '/checklist/' + data.checklistId + '/update' ;
+    let auth = true;
+    return this.svc.post(data, url, auth);  
+  }
+
+  getEncodedData(data):string
+  {
+    const formBody=[];
+    for(const property in data )
+    {
+      const encodedKey = encodeURIComponent(property);
+      const encodedValue = encodeURIComponent(data[property]);
+      formBody.push(encodedKey + '=' + encodedValue);
+    }
+    return formBody.join('&');
+  }
 
 
 }

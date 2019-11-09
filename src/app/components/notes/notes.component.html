@@ -6,27 +6,93 @@
     </mat-card>
   </div>
 
-  <div class="titlecard2"  *ngIf="!show" fxFlex="50" fxFlex.xs="90">
-    <mat-card class="card2" [ngStyle]="{background : message}" fxLayout="column" fxLayoutGap="20px" >
+  <div class="titlecard2" *ngIf="!show" fxFlex="50" fxFlex.xs="90">
+    <mat-card class="card2" [ngStyle]="{background : message}" fxLayout="column" fxLayoutGap="20px">
       <textarea matInput type="text" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
-        cdkAutosizeMaxRows="25" placeholder="Title" class="area2" [formControl]="title" [(ngModel)]="titleMo"></textarea>
+        cdkAutosizeMaxRows="25" placeholder="Title" class="area2" [formControl]="title"
+        [(ngModel)]="titleMo"></textarea>
       <textarea matInput type="text" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
-        cdkAutosizeMaxRows="25" placeholder="Take a Note" class="area2" [formControl]="description" [(ngModel)]="descriptionMo"></textarea>
-     
-        <div *ngIf="reminderMessage != ''">
+        cdkAutosizeMaxRows="25" placeholder="Take a Note" class="area2" [formControl]="description"
+        [(ngModel)]="descriptionMo"></textarea>
+
+
+      <!-- adding element to the checklist -->
+      <div *ngIf="checklistShow" style="outline: orange;">
+        <mat-icon>add</mat-icon>
+        <textarea [formControl]="item" placeholder="List item" [(ngModel)]="itemmodel"></textarea>
+        <button (click)=listitem()>Ask</button>
+      </div>
+
+      <!-- rendering the checklist  -->
+
+      <div *ngFor="let item of itemArray">
+        <div *ngIf="item.status=='open'">
+          <mat-icon (click)=updatestatus(item.itemName,item.status)>check_box_outline_blank</mat-icon>
+          {{item.itemName}}
+          <mat-icon (click)=deletechecklist(item.itemName)>delete</mat-icon>
+        </div>
+        <div *ngIf="item.status=='close'">
+          <mat-icon (click)=updatestatus(item.itemName,item.status)>check_box</mat-icon>
+          <s>{{item.itemName}}</s>
+          <mat-icon (click)=deletechecklist(item.itemName)>delete</mat-icon>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+      <!-- label data  -->
+      <div fxLayout="row wrap">
+        <div *ngFor="let noteLabel of labelDataArrayLabel">
           <mat-chip-list>
-            <mat-chip class="chips">{{reminderMessage | date:'short'}}
+            <mat-chip class="chips">{{noteLabel.label}}
               <button class="hide" matSuffix mat-icon-button>
                 <mat-icon>close</mat-icon>
-              </button>
-            </mat-chip>
+              </button></mat-chip>
           </mat-chip-list>
         </div>
-     
-        <div style="display: flex" fxLayoutAlign="space-between center">
-        <app-toolbar fxFlex="75" (messageEvent)="receiveMessage($event)" (reminderEvent)="receiveReminderMessage($event)" [function]="component"></app-toolbar>
+      </div>
+
+
+      <!-- reminder column -->
+
+
+      <div *ngIf="reminderMessage != ''">
+        <mat-chip-list>
+          <mat-chip class="chips">{{reminderMessage | date:'short'}}
+            <button class="hide" matSuffix mat-icon-button  (click)="clearReminder()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+
+      <!-- collaborators  -->
+
+      <div fxLayout="row wrap">
+        <div *ngFor="let collaborator of collaboratorData">
+          <button mat-mini-fab color="accent"
+            title="{{collaborator.email}}">{{collaborator.firstName[0] | uppercase}}</button>
+        </div>
+      </div>
+
+
+
+
+
+
+      <div style="display: flex" fxLayoutAlign="space-between center">
+        <app-toolbar fxFlex="75" (labelEvent)="receiveLabelMessage($event)" (messageEvent)="receiveMessage($event)"
+          (reminderEvent)="receiveReminderMessage($event)" [function]="component"></app-toolbar>
         <button mat-button (click)="receiveData()">Close</button>
-       
+
       </div>
     </mat-card>
   </div>

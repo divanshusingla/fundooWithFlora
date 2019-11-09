@@ -132,5 +132,22 @@ export class QuestionsComponent implements OnInit {
     }
     return this.noOfLikes;
   }
+
+  countLikesReply(questionId,parentId) {
+    this.noOfLikes = 0;
+    // console.log("enter in the count likes =>>>>>>>>>>>>>>>>>>>");
+    for (var i = 1; i < this.questionAndAnswersArrayLength; i++) {
+      if ((this.noteData.questionAndAnswerNotes[i].id == questionId) && (this.noteData.questionAndAnswerNotes[i].parentId == parentId)) {
+        for (var j = 0; j < this.noteData.questionAndAnswerNotes[i].like.length; j++) {
+          if (this.noteData.questionAndAnswerNotes[i].like[j].like == true) {
+            this.noOfLikes++;
+          }
+        }
+      }
+    }
+    return this.noOfLikes;
+  }
+
+
 }
 

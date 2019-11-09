@@ -22,8 +22,8 @@ export class CollaboratorComponent implements OnInit {
   userEmail = localStorage.getItem('email');
   userImageUrl = localStorage.getItem('imageUrl');
   noteIdCollab = this.data.noteId;
-  collaboratorsList : any;
-  searchBarCollabb : any;
+  collaboratorsList: any;
+  searchBarCollabb: any;
   constructor(@Inject(UserServiceService) private userSvc: UserServiceService, @Inject(MAT_DIALOG_DATA) private data: any, @Inject(NoteServiceService) private svc: NoteServiceService, @Inject(MatDialogRef) private dialogRef: MatDialogRef<NoteMainComponent>, @Inject(DataService) private dataSvc: DataService) {
     this.backurl = localStorage.getItem('imageUrl');
     if (this.backurl) {
@@ -50,57 +50,67 @@ export class CollaboratorComponent implements OnInit {
     });
   }
   addCollaborator() {
-    let userObj =
-    {
-      firstName: this.dataF[0].firstName,
-      lastName: this.dataF[0].lastName,
-      email: this.dataF[0].email,
-      userId: this.dataF[0].userId,
-      noteId: this.data.noteId,
+    if (this.data.noteId) {
+      let userObj =
+      {
+        firstName: this.dataF[0].firstName,
+        lastName: this.dataF[0].lastName,
+        email: this.dataF[0].email,
+        userId: this.dataF[0].userId,
+        noteId: this.data.noteId,
+      }
+      // console.log("fadasdasdasdasdada",userObj.noteId);
+      this.svc.addCollaborator(userObj).subscribe((response: any) => {
+        console.log('response', response);
+        this.getCollaborators();
+      }, (error) => {
+        console.log(error);
+      });
     }
-    // console.log("fadasdasdasdasdada",userObj.noteId);
-    this.svc.addCollaborator(userObj).subscribe((response: any) => {
-     console.log('response', response);
-     this.getCollaborators();
+    else {
+      let userObj =
+      {
+        firstName: this.dataF[0].firstName,
+        lastName: this.dataF[0].lastName,
+        email: this.dataF[0].email,
+        userId: this.dataF[0].userId,
+      }
+    this.dataSvc.changeCollaborator(userObj);
+    }
+
+  }
+
+
+  getCollaborators() {
+    let collab = {
+      noteId: this.data.noteId
+    }
+    this.svc.getCollaborators(collab).subscribe((response: any) => {
+      console.log('response to get collabaasdfc', response);
+      this.collaboratorsList = response.collaborators;
+      this.searchBarCollabb = " ";
+      this.collaboratorSearch = "";
+      this.dataSvc.changeMessage("collaborators are added or removed")
+    }, (error) => {
+      console.log(error);
+    });
+
+  }
+
+  deleteCollaborators(user, note) {
+    let deleteCollab = {
+      userId: user,
+      noteId: note
+    }
+    this.svc.deleteCollaborators(deleteCollab).subscribe((response: any) => {
+      console.log("response from deletion of collab ", response);
+      this.getCollaborators();
     }, (error) => {
       console.log(error);
     });
   }
 
-
-  getCollaborators()
-  {
-    let collab = {
-      noteId : this.data.noteId
-    }
-    this.svc.getCollaborators(collab).subscribe((response: any) => {
-      console.log('response to get collabaasdfc', response); 
-      this.collaboratorsList = response.collaborators;
-      this.searchBarCollabb = " ";
-      this.collaboratorSearch = "";
-      this.dataSvc.changeMessage("collaborators are added or removed")
-     }, (error) => {
-       console.log(error);
-     });
-
-  }
-
-  deleteCollaborators(user,note)
-  {
-    let deleteCollab = {
-      userId : user,
-      noteId : note
-    }
-    this.svc.deleteCollaborators(deleteCollab).subscribe((response: any) => {
-      console.log("response from deletion of collab ",response);
-      this.getCollaborators();
-    }, (error) => {
-       console.log(error);
-     });
-  }
-
-  saveCollaborator()
-  {
+  saveCollaborator() {
     this.dialogRef.close();
   }
 
