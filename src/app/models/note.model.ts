@@ -7,4 +7,5 @@ export class Note
    labelIdList : any;
    checklist : any;
    collaberators : any;
+   isArchived : any;
 }

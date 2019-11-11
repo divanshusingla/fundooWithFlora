@@ -7,10 +7,11 @@
 .container
 {
     display: flex;   
+    overflow-x: hidden;
+    
 }
 .text
 {
-    width: 80%;
     border : none;
     outline: none;
     padding-top: 10px;
@@ -20,4 +21,27 @@
 .footer
 {
     display: flex;
+}
+
+
+.label
+{
+    transform: scaleX(0.9) scaleY(0.8);
+   
+}
+
+.reminder
+{
+    transform: scaleX(0.9) scaleY(0.8);
+}
+.collab
+{
+    transform: scaleX(0.8) scaleY(0.8);
+}
+
+.mat-chip
+{
+    padding: 1px;
+    padding-top: 1px;
+    padding-bottom: 1px;
 }

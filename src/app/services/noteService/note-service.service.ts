@@ -111,7 +111,7 @@ export class NoteServiceService {
     return this.svc.post(Obj, url, auth);
   }
 
-  addReminderToNOte(data) {
+  addReminderToNOte(data) : Observable<any> {
     let url = 'notes/addUpdateReminderNotes';
     let auth = true;
     return this.svc.post(data, url, auth);
@@ -130,7 +130,7 @@ export class NoteServiceService {
     return this.svc.post(data, url, auth);
   }
 
-  getCollaborators(data) {
+  getCollaborators(data)  {
     let url = 'notes/' + data.noteId;
     let auth = true;
     return this.svc.patch(data, url);

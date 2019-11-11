@@ -26,6 +26,7 @@ export class DialogNoteComponent implements OnInit {
 
 
   ngOnInit() {
+
   }
 
   updateNote() {
@@ -53,5 +54,4 @@ export class DialogNoteComponent implements OnInit {
     });
     this.dataSvc.changeMessage("message from dialog");
   }
-
 }

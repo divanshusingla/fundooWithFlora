@@ -1,6 +1,6 @@
 <div class="container" fxLayout="column">
   <mat-toolbar class="toolbar" fxFlex="9">
-    <button mat-button (click)="drawer.toggle()" class="toolbarButton">
+    <button mat-button (click)="snav.toggle()" class="toolbarButton">
       <mat-icon>menu</mat-icon>
     </button>
     <img src="../../../assets/images/dashboardIcon.png" class="image">
@@ -63,8 +63,8 @@
 
   <div class="toolnote" fxFlex="90">
  <div>
-    <mat-drawer-container class="maincontainer" fxHide.xs="true" fxShow="true">
-      <mat-drawer #drawer  mode="side" class="sidebar" opened>
+    <mat-sidenav-container class="maincontainer" fxHide.xs="true" fxShow="true">
+      <mat-sidenav #snav mode="side" class="sidebar" overlapTrigger="true" >
         <mat-nav-list fxLayout="column" fxLayoutGap="5px">
           <a routerLinkActive="cd" routerLink="/note" fxLayoutAlign="start center">
             <mat-icon class="sidebaricons" >description</mat-icon>Notes
@@ -91,11 +91,11 @@
             <mat-icon class="sidebaricons">delete</mat-icon>Trash
           </a>
         </mat-nav-list>
-      </mat-drawer>
-    </mat-drawer-container>
+        </mat-sidenav>
+    </mat-sidenav-container>
   </div>
-    <div style="padding-left: 10%;padding-right : 10%" fxFlex="100" fxFlex.xs="100" fxFlex.sm="100"> 
-      <router-outlet></router-outlet>
+    <div style="padding-left: 25%;padding-right: 5%" fxFlex="100" fxFlex.xs="100" fxFlex.sm="100"> 
+      <router-outlet fxLayoutAlign="start center" ></router-outlet>
     </div>
   </div>
   

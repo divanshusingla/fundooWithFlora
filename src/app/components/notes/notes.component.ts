@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Note } from '../../models/note.model';
 import { NoteServiceService } from './../../services/noteService/note-service.service';
 import { DataService } from 'src/app/services/dataService/data.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-notes',
@@ -27,7 +28,7 @@ export class NotesComponent implements OnInit {
   itemArray: any = [];
   checklistIndex: any;
   collaboratorData :any = [];
-
+  archiveStatus = false ;
 
 
   @Output() messageEvent = new EventEmitter<string>();
@@ -44,6 +45,7 @@ export class NotesComponent implements OnInit {
     this.reminderMessage = "";
     this.labelDataArrayLabel = [];
     this.collaboratorData = [];
+    this.itemArray = [];
   }
 
   constructor(@Inject(NoteServiceService) private svc: NoteServiceService, @Inject(DataService) private datasvc: DataService) { }
@@ -52,6 +54,16 @@ export class NotesComponent implements OnInit {
       this.labelData = res;
       console.log("reponse on dding label ", res);
     });
+
+    this.datasvc.currentArchiveStatus.subscribe((res:any) => {
+      console.log("res..........",res);
+      if(res != "initial archive status"){
+              this.archiveStatus = res.isArchived;
+      console.log("Archive status from the init ", res.isArchived);
+      this.receiveData();
+      }
+    });
+
 
     this.datasvc.currentCollaborator.subscribe((res) => {
       if(res != "No collaborator are there")
@@ -73,6 +85,8 @@ export class NotesComponent implements OnInit {
     })
   }
   receiveData() {
+    console.log("this. archiev statsus ", this.archiveStatus);
+    
     if (this.title.value == null && this.description.value == null) {
       this.toggle();
     }
@@ -85,7 +99,7 @@ export class NotesComponent implements OnInit {
         labelIdList: JSON.stringify(this.labelDataArray),
         checklist : JSON.stringify(this.itemArray),
         collaberators : JSON.stringify(this.collaboratorData),
-
+        isArchived : this.archiveStatus,
       }
       this.result = this.svc.receiveNotesData(this.note)
       this.result.subscribe((response) => {
@@ -110,12 +124,31 @@ export class NotesComponent implements OnInit {
     // console.log("in notesdfdfdsfdsf",$event);
   }
 
+  checkAlreadyExistence(value : any){
+    console.log("lsbel array ============>>>>>>>>>>>>>", this.labelDataArrayLabel);
+    let flag=true;
+    for(var i=0 ; i < this.labelDataArrayLabel.length ; i++) 
+    {
+      console.log("sadasdasdasdasdasdasdasdasD",value)
+      if(this.labelDataArrayLabel[i].labelId == value.labelId)
+      flag=false;
+    }
+    console.log("sdffffffffffffffffffffffffffff",flag)
+    return flag;
+  }
+
+
+
   receiveLabelMessage($event) {
+    console.log("asdfafdasda value from checking label", this.checkAlreadyExistence($event));
+    if(this.checkAlreadyExistence($event))
+    {
     this.labelDataArrayLabel.push($event)
     this.labelDataArray.push($event.labelId);
-    console.log("ebefcef ", $event);
+    // console.log("ebefcef ", $event);
     this.labelData = $event;
     console.log("labeldata from the event ==>>>>>>>>>.", this.labelDataArray);
+    }
   }
 
   clearReminder()
@@ -145,6 +178,16 @@ export class NotesComponent implements OnInit {
     console.log("index....", this.itemArray.findIndex(i => i.itemName === itemname));
     this.itemArray.splice(this.checklistIndex, 1);
   }
+
+  removeLabelFromNote(id)
+  {
+    let labelIndex = this.labelDataArrayLabel.findIndex(i => i.id === id);
+    this.labelDataArrayLabel.splice(labelIndex,1);
+  }
+
+
+
+
 
 
 }

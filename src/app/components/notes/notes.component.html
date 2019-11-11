@@ -17,23 +17,24 @@
 
 
       <!-- adding element to the checklist -->
-      <div *ngIf="checklistShow" style="outline: orange;">
+      <div  style="display: flex" fxLayoutAlign="center start" *ngIf="checklistShow" style="outline: orange;">
         <mat-icon>add</mat-icon>
-        <textarea [formControl]="item" placeholder="List item" [(ngModel)]="itemmodel"></textarea>
-        <button (click)=listitem()>Ask</button>
+        <textarea cdkTextareaAutosize cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="25" class="checklistArea" [formControl]="item" placeholder="List item" [(ngModel)]="itemmodel"></textarea>
+        <button (click)=listitem()>Add</button>
       </div>
 
       <!-- rendering the checklist  -->
 
       <div *ngFor="let item of itemArray">
-        <div *ngIf="item.status=='open'">
+        <div *ngIf="item.status=='open'" fxLayoutAlign="center start">
           <mat-icon (click)=updatestatus(item.itemName,item.status)>check_box_outline_blank</mat-icon>
-          {{item.itemName}}
+         <p fxFlex="80" style=" word-break: break-all"> {{item.itemName}} </p>
           <mat-icon (click)=deletechecklist(item.itemName)>delete</mat-icon>
         </div>
-        <div *ngIf="item.status=='close'">
+        <div *ngIf="item.status=='close'" fxLayoutAlign="center start">
           <mat-icon (click)=updatestatus(item.itemName,item.status)>check_box</mat-icon>
-          <s>{{item.itemName}}</s>
+          <s><p fxFlex="90" style=" word-break: break-all"> {{item.itemName}} </p></s>
           <mat-icon (click)=deletechecklist(item.itemName)>delete</mat-icon>
         </div>
       </div>
@@ -53,7 +54,7 @@
         <div *ngFor="let noteLabel of labelDataArrayLabel">
           <mat-chip-list>
             <mat-chip class="chips">{{noteLabel.label}}
-              <button class="hide" matSuffix mat-icon-button>
+              <button class="hide" matSuffix mat-icon-button (click)="removeLabelFromNote(noteLabel.id)">
                 <mat-icon>close</mat-icon>
               </button></mat-chip>
           </mat-chip-list>

@@ -1,4 +1,4 @@
-<div class="container" fxLayout="column" [ngStyle]="{background : data.color}" fxLayoutGap="10px" *ngIf="data.component == 'mainnotes' || data.component == 'archive'">
+<div class="container" fxLayout="column" [ngStyle]="{background : data.color}" *ngIf="data.component == 'mainnotes' || data.component == 'archive'">
 
   <textarea matInput type="text" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
     cdkAutosizeMaxRows="25" class="text" placeholder="Title" [formControl]="title" value="{{data.title}}"></textarea>
@@ -6,14 +6,88 @@
   <textarea matInput type="text" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
     cdkAutosizeMaxRows="25" class="text" placeholder="Take a Note" [formControl]="description"
     value="{{data.description}}"></textarea>
+
+    <!-- printing the labels of note  -->
+    <div fxLayout="row wrap">
+      <div class="label" *ngFor="let noteLabel of data.labels">
+        <mat-chip-list>
+          <mat-chip class="chips">{{noteLabel.label}}
+            <button class="hide" matSuffix mat-icon-button>
+              <mat-icon>close</mat-icon>
+            </button></mat-chip>
+        </mat-chip-list>
+      </div>
+    </div>
+
+
+    <!-- printing the remider of the note  -->
+    <div *ngIf="data.reminder.length"> 
+    <div class="reminder" *ngFor="let reminder of data.reminder">
+      <mat-chip-list>
+        <mat-chip class="chips">{{reminder | date : 'short'}}
+          <button class="hide" matSuffix mat-icon-button (click)="deleteReminderFromNotes(data.id,reminder)">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
+
+<!-- displaying the collaborators -->
+
+<div fxLayout="row wrap">
+    <div class="collab" *ngFor="let collaborator of data.collaborators">
+      <button mat-mini-fab color="accent"
+        title="{{collaborator.email}}">{{collaborator.firstName[0] | uppercase}}</button>
+    </div>
+  </div>
+
+
+
+
+
   <div class="footer" fxLayoutAlign="space-between center">
     <app-toolbar [noteid]="data.id" [function]=data.component></app-toolbar>
     <button mat-button (click)=" updateNote()">Close</button>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="container" fxLayout="column" fxLayoutGap="10px" *ngIf="data.component== 'trash'">
   <p style="word-break: break-all;min-width : 40%">{{data.title}}</p>
   <p style="word-break: break-all">{{data.description}}</p>
+  <div fxLayout="row wrap">
+    <div *ngFor="let noteLabel of data.labels">
+      <mat-chip-list>
+        <mat-chip class="chips">{{noteLabel.label}}
+          <button class="hide" matSuffix mat-icon-button>
+            <mat-icon>close</mat-icon>
+          </button></mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
   <app-toolbar [noteid]="data.id" [function]=data.component></app-toolbar>
 </div>
 

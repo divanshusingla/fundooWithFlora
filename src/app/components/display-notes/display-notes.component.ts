@@ -22,13 +22,13 @@ view : any;
 checkboxViewData : any;
 itemForChecklist = new FormControl;
 checklistItemModel : any;
+
   constructor(@Inject(NoteServiceService) private svc : NoteServiceService,@Inject(DataService) private dataSvc : DataService,@Inject(MatDialog) private dialog : MatDialog) { }
 
   ngOnInit() {
     this.dataSvc.currentCheckbox.subscribe((res)=> {
       this.checkboxViewData = res;
       console.log('checkboxViewData =>>>>>>>>..',this.checkboxViewData );
-      
     })
 
     this.dataSvc.currentView.subscribe((res) => {
@@ -61,6 +61,9 @@ openDialog(note)
         id : note.id,
         color : note.color,
         component : this.component,
+        labels : note.noteLabels,
+        reminder : note.reminder,
+        collaborators : note.collaborators
       }
     });
   dialogref.afterClosed().subscribe(result=> {
@@ -94,6 +97,7 @@ deleteReminderFromNotes(noteid,reminder)
     this.dataSvc.changeMessage(response);
     //console.log(response);
   });
+  return true;
 }
 
 
@@ -156,7 +160,7 @@ else
   }
 }
 
-// console.log("asssssssssssssssssssssssssssssssss",itemDataUpdate);
+console.log("asssssssssssssssssssssssssssssssss",itemDataUpdate);
 
   this.svc.updateItemFromChecklist(itemDataUpdate).subscribe((response: any) => {
     this.dataSvc.changeMessage(response);
