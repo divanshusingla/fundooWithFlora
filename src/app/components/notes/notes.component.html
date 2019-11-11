@@ -1,12 +1,12 @@
 <div class="container" fxLayoutAlign="space-around center">
-  <div class="titlecard1" (click)="toggle()" *ngIf="show" fxFlex="50" fxFlex.xs="90">
+  <div class="titlecard1" (click)="toggle()" *ngIf="show"  fxFlex.xs="90">
     <mat-card class="card1">
       <textarea matInput type="text" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
         cdkAutosizeMaxRows="25" placeholder="Take a note" class="area1"></textarea>
     </mat-card>
   </div>
 
-  <div class="titlecard2" *ngIf="!show" fxFlex="50" fxFlex.xs="90">
+  <div class="titlecard2" *ngIf="!show"  fxFlex.xs="90">
     <mat-card class="card2" [ngStyle]="{background : message}" fxLayout="column" fxLayoutGap="20px">
       <textarea matInput type="text" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
         cdkAutosizeMaxRows="25" placeholder="Title" class="area2" [formControl]="title"
