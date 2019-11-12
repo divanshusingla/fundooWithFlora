@@ -1,10 +1,16 @@
-<h1>fundooNotes offered. Choose below service to Register.</h1>
-<mat-card (click)="Send('Advance')">price: $99 per month
-  advance
+<div  fxLayoutAlign="center center ">
+<h2>fundooNotes offered. Choose below service to Register.</h2>
+</div>
+<div fxLayoutAlign="center start " fxLayoutGap="20%">
+<mat-card fxFlex="20" (click)="Send('Advance')">price: $99 per month
+ <b>advance</b>
   $99/month
   Ability to add title, description, images, labels, checklist and colors</mat-card>
-<mat-card (click)="Send('Basic')">price: $49 per month
-  basic
+<mat-card fxFlex="15" (click)="Send('Basic')">price: $49 per month
+  <b>basic</b>
   $49/month
   Ability to add only title and description</mat-card>
+</div>
+<div  fxLayoutAlign="center start ">
   <a routerLink="/login">Sign In Instead</a>
+</div>

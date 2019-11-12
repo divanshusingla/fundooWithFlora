@@ -19,6 +19,10 @@ export class MoreVerticleIconComponent implements OnInit {
   message: any;
   response: any;
   labelObj: any;
+  result1 : any;
+  response1 : any;
+  noteData : any;
+
   show : any = false;
   constructor(@Inject(MatSnackBar) private _snackBar: MatSnackBar,@Inject(Router)private router : Router,@Inject(NoteServiceService) private svc: NoteServiceService, @Inject(DataService) private dataSvc: DataService) { }
 
@@ -98,8 +102,10 @@ export class MoreVerticleIconComponent implements OnInit {
       this.response = response;
       this.messageEvent.emit(this.message);
       console.log("messag from kabel===>>>>>>>>>>>",this.response);
+      this.getNoteData(this.noteid);
+      this.dataSvc.changeMessage("add label function is executed");
     });
-    this.dataSvc.changeMessage("add label function is executed");
+ 
   }
 
   else{
@@ -131,5 +137,20 @@ export class MoreVerticleIconComponent implements OnInit {
       duration: 2000,
     });
   }
+
+
+  getNoteData(id) {
+    console.log("sdfffffffffffffffffff", id);
+    this.result1 = this.svc.getNoteData(id)
+    this.result1.subscribe((response) => {
+      this.response1 = response.data.data;
+      this.noteData = this.response1[0];
+      console.log("the result is of notedata ", this.noteData);
+       
+    this.dataSvc.sendLabelToDialog(this.noteData);
+    });
+  }
+  
+
 
 }

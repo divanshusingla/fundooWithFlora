@@ -97,7 +97,6 @@ deleteReminderFromNotes(noteid,reminder)
     this.dataSvc.changeMessage(response);
     //console.log(response);
   });
-  return true;
 }
 
 

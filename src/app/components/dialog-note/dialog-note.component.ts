@@ -16,6 +16,9 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 export class DialogNoteComponent implements OnInit {
   result: any;
   response: any;
+  result1 : any;
+  response1 : any;
+  noteData : any;
   title = new FormControl();
   description = new FormControl();
   note: UpdateNote = new UpdateNote();
@@ -26,6 +29,47 @@ export class DialogNoteComponent implements OnInit {
 
 
   ngOnInit() {
+    this.dataSvc.currentColor.subscribe((res : any)=>
+    {
+      if(res != 'default color' && res.id == this.data.id)
+      {
+        this.data.color = res.color;
+        console.log("color for the dialog",res);
+        
+      }
+    })
+
+    this.dataSvc.currentReminder.subscribe((res : any)=>
+    {
+      if(res != 'reminder from dialog'  && res.id == this.data.id)
+      {
+        this.data.reminder = res.reminder;
+        console.log("color for the dialog",res);
+        
+      }
+    })
+
+    this.dataSvc.currentcollabForDialog.subscribe((res : any)=>
+    {
+      if(res != 'initial collab'  && res.id == this.data.id)
+      {
+        this.data.collaborators = res.collaborators;
+        // console.log("color for the dialog",res);
+        
+      }
+    })
+
+
+    this.dataSvc.currentLabelForDialog.subscribe((res : any)=>
+    {
+      if(res != 'initial label' && res.id == this.data.id)
+      {
+        console.log("response for the label",res);
+        
+        this.data.labels = res.noteLabels;
+        // console.log("color for the dialog",res);
+      }
+    })
 
   }
 
@@ -54,4 +98,49 @@ export class DialogNoteComponent implements OnInit {
     });
     this.dataSvc.changeMessage("message from dialog");
   }
+
+
+  deleteReminderFromNotes(id,reminder)
+  {
+    let data = 
+    {
+      noteIdList : [id],
+      reminder : reminder
+    }
+    this.svc.deleteReminderFromNotes(data).subscribe((response: any) => {
+      this.dataSvc.changeMessage(response);
+      this.data.reminder = "";
+      //console.log(response);
+    });
+  }
+
+
+
+  deletelabelfromnotes(labelid, noteid) {
+    let data = {
+      id: labelid,
+      noteId: noteid
+    }
+    console.log("label value.......", data);
+    this.svc.deleteLabelFromNotes(data).subscribe((response: any) => {
+            this.getNoteData(noteid);
+      this.dataSvc.changeMessage(response);
+
+      // this.data = this.noteData;
+      //console.log(response);
+    });
+  }
+
+
+  getNoteData(id) {
+    this.result1 = this.svc.getNoteData(id)
+    this.result1.subscribe((response) => {
+      console.log("response from th color getNOteData function ",response);   
+      this.response1 = response.data.data;
+      this.noteData = this.response1[0];
+      this.data.labels = this.noteData.noteLabels;
+    });
+  }
+
+
 }

@@ -13,6 +13,10 @@ export class DataService {
   private initialCollaborator = new BehaviorSubject('No collaborator are there');
   private initialArchievstatus = new BehaviorSubject('initial archive status');
   private initialReminder = new BehaviorSubject('reminder from dialog');
+  private initialColor = new BehaviorSubject('default color');
+  private initialLabel = new BehaviorSubject('initial label')
+  private initialCollabForDialog = new BehaviorSubject('initial collab');
+
 
   currentMessage = this.messageSource.asObservable();
   currentView = this.viewSource.asObservable();
@@ -21,6 +25,9 @@ export class DataService {
   currentCollaborator = this.initialCollaborator.asObservable();
   currentArchiveStatus = this.initialArchievstatus.asObservable();
   currentReminder = this.initialReminder.asObservable();
+  currentColor = this.initialColor.asObservable();
+  currentcollabForDialog = this.initialCollabForDialog.asObservable();
+  currentLabelForDialog = this.initialLabel.asObservable();
 
   constructor() { }
 
@@ -58,5 +65,18 @@ export class DataService {
     this.initialReminder.next(message);
   }
 
+  changeColor(message : any)
+  {
+    this.initialColor.next(message);
+  }
 
+  sendCollabToDialog(message : any)
+  {
+    this.initialCollabForDialog.next(message);
+  }
+
+  sendLabelToDialog(message : any)
+  {
+    this.initialLabel.next(message);
+  }
 }

@@ -89,8 +89,8 @@
 
 
 
-      <div style="display: flex" fxLayoutAlign="space-between center">
-        <app-toolbar fxFlex="75" (labelEvent)="receiveLabelMessage($event)" (messageEvent)="receiveMessage($event)"
+      <div style="display: flex" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+        <app-toolbar fxFlex="75"  (labelEvent)="receiveLabelMessage($event)" (messageEvent)="receiveMessage($event)"
           (reminderEvent)="receiveReminderMessage($event)" [function]="component"></app-toolbar>
         <button mat-button (click)="receiveData()">Close</button>
 

@@ -16,6 +16,8 @@ export class ReminderIconComponent implements OnInit {
   // time : any;
   // date : any;
   result : any;
+  result1 : any;
+  response1 : any;
   response : any;
   reminderDate = new FormControl();
   reminderTime = new FormControl();
@@ -46,11 +48,13 @@ export class ReminderIconComponent implements OnInit {
 
 getNoteData(id) {
   console.log("sdfffffffffffffffffff", id);
-  this.result = this.svc.getNoteData(id)
-  this.result.subscribe((response) => {
-    this.response = response.data.data;
-    this.noteData = this.response[0];
+  this.result1 = this.svc.getNoteData(id)
+  this.result1.subscribe((response) => {
+    this.response1 = response.data.data;
+    this.noteData = this.response1[0];
     console.log("the result is of notedata ", this.noteData);
+     
+  this.dataSvc.reminderFromDialog(this.noteData);
   });
 }
 
@@ -70,9 +74,8 @@ setReminder()
   this.result.subscribe((response) => {
     this.response = response;
     console.log('response',this.response); 
+    this.getNoteData(this.noteid);
   });
-  this.getNoteData(this.noteid);
-  this.dataSvc.reminderFromDialog(this.noteData);
 this.dataSvc.changeMessage("reminder is added");
 }
 else

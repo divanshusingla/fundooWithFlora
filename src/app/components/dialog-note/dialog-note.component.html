@@ -12,7 +12,7 @@
       <div class="label" *ngFor="let noteLabel of data.labels">
         <mat-chip-list>
           <mat-chip class="chips">{{noteLabel.label}}
-            <button class="hide" matSuffix mat-icon-button>
+            <button class="hide" matSuffix mat-icon-button (click)="deletelabelfromnotes(noteLabel.id, data.id)">
               <mat-icon>close</mat-icon>
             </button></mat-chip>
         </mat-chip-list>

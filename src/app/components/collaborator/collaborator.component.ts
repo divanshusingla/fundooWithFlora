@@ -16,6 +16,9 @@ export class CollaboratorComponent implements OnInit {
   backurl: any;
   url: any;
   dataF: any;
+  result1 : any;
+  response1 : any;
+  noteData : any;
   collaboratorSearch: any;
   token = localStorage.getItem('id');
   userName = localStorage.getItem('name');
@@ -63,6 +66,7 @@ export class CollaboratorComponent implements OnInit {
       this.svc.addCollaborator(userObj).subscribe((response: any) => {
         console.log('response', response);
         this.getCollaborators();
+        this.getNoteData(this.noteIdCollab);
       }, (error) => {
         console.log(error);
       });
@@ -75,7 +79,7 @@ export class CollaboratorComponent implements OnInit {
         email: this.dataF[0].email,
         userId: this.dataF[0].userId,
       }
-    this.dataSvc.changeCollaborator(userObj);
+      this.dataSvc.changeCollaborator(userObj);
     }
 
   }
@@ -105,6 +109,8 @@ export class CollaboratorComponent implements OnInit {
     this.svc.deleteCollaborators(deleteCollab).subscribe((response: any) => {
       console.log("response from deletion of collab ", response);
       this.getCollaborators();
+      this.getNoteData(this.noteIdCollab);
+
     }, (error) => {
       console.log(error);
     });
@@ -113,5 +119,18 @@ export class CollaboratorComponent implements OnInit {
   saveCollaborator() {
     this.dialogRef.close();
   }
+
+
+  getNoteData(id) {
+    this.result1 = this.svc.getNoteData(id)
+    this.result1.subscribe((response) => {
+      console.log("response from th color getNOteData function ",response);   
+      this.response1 = response.data.data;
+      this.noteData = this.response1[0];
+      console.log("the result is of notedata ", this.noteData);
+      this.dataSvc.sendCollabToDialog(this.noteData);
+    });
+  }
+
 
 }

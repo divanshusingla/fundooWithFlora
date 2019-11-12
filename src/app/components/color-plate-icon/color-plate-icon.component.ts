@@ -12,7 +12,10 @@ export class ColorPlateIconComponent implements OnInit {
   @Output() messageEvent = new EventEmitter<string>();
   message: string = "to change color";
   result: any;
+  result1 : any;
   response: any;
+  response1 : any
+  noteData : any;
   colorArray: any = [
     { color: '#ECEEEE' }, { color: '#F28B82' }, { color: '#F7BC04' }, { color: '#FAF474' },
     { color: '#CBFF90' }, { color: '#AAFEEB' }, { color: '#CBF0F8' }, { color: '#ADCBFA' },
@@ -35,11 +38,27 @@ export class ColorPlateIconComponent implements OnInit {
         this.response = response;
         this.messageEvent.emit(this.message)
         console.log("the result is ", this.response);
-      });
+        this.getNoteData(noteid);
+      }); 
       this.dataSvc.changeMessage("color is changed");
     }
     else {
       this.messageEvent.emit(color);
     }
   }
+
+
+  getNoteData(id) {
+    this.result1 = this.svc.getNoteData(id)
+    this.result1.subscribe((response) => {
+      console.log("response from th color getNOteData function ",response);   
+      this.response1 = response.data.data;
+      this.noteData = this.response1[0];
+      console.log("the result is of notedata ", this.noteData);
+      this.dataSvc.changeColor(this.noteData);
+    });
+  }
+
+
+
 }
