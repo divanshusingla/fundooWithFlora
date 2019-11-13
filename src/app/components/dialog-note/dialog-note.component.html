@@ -1,27 +1,43 @@
-<div class="container" fxLayout="column" [ngStyle]="{background : data.color}" *ngIf="data.component == 'mainnotes' || data.component == 'archive'">
+<div class="container" fxLayout="column" [ngStyle]="{background : data.color}"
+  *ngIf="data.component == 'mainnotes' || data.component == 'archive' || data.component == 'notesByLabel'">
 
   <textarea matInput type="text" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
     cdkAutosizeMaxRows="25" class="text" placeholder="Title" [formControl]="title" value="{{data.title}}"></textarea>
-
   <textarea matInput type="text" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
     cdkAutosizeMaxRows="25" class="text" placeholder="Take a Note" [formControl]="description"
     value="{{data.description}}"></textarea>
-
-    <!-- printing the labels of note  -->
-    <div fxLayout="row wrap">
-      <div class="label" *ngFor="let noteLabel of data.labels">
-        <mat-chip-list>
-          <mat-chip class="chips">{{noteLabel.label}}
-            <button class="hide" matSuffix mat-icon-button (click)="deletelabelfromnotes(noteLabel.id, data.id)">
-              <mat-icon>close</mat-icon>
-            </button></mat-chip>
-        </mat-chip-list>
-      </div>
+  <!-- printing the checklist  -->
+  <div *ngFor="let item of data.noteCheckLists">
+    <div *ngIf="item.status == 'open' && item.isDeleted == false ">
+      <mat-icon (click)="updateItemFromChecklist(item.status,item.id,data.id,item.itemName)">check_box_outline_blank
+      </mat-icon>
+      {{item.itemName}}
+      <mat-icon (click)="deleteItemFromChecklist(item.id,data.id)">delete</mat-icon>
     </div>
-
-
-    <!-- printing the remider of the note  -->
-    <div *ngIf="data.reminder.length"> 
+    <div *ngIf="item.status == 'close' && item.isDeleted == false ">
+      <mat-icon (click)="updateItemFromChecklist(item.status,item.id,data.id,item.itemName)">check_box</mat-icon>
+      <s> {{item.itemName}} </s>
+      <mat-icon (click)="deleteItemFromChecklist(item.id,data.id)">delete</mat-icon>
+    </div>
+  </div>
+  <div *ngIf="checkboxViewData.show==true && checkboxViewData.noteId == data.id">
+    <mat-icon>add</mat-icon><textarea [formControl]="itemForChecklist" [(ngModel)]="checklistItemModel"
+      placeholder="List item"></textarea>
+    <button (click)=addItemToChecklist(data.id)>add</button>
+  </div>
+  <!-- printing the labels of note  -->
+  <div fxLayout="row wrap">
+    <div class="label" *ngFor="let noteLabel of data.labels">
+      <mat-chip-list>
+        <mat-chip class="chips">{{noteLabel.label}}
+          <button class="hide" matSuffix mat-icon-button (click)="deletelabelfromnotes(noteLabel.id, data.id)">
+            <mat-icon>close</mat-icon>
+          </button></mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
+  <!-- printing the remider of the note  -->
+  <div *ngIf="data.reminder.length">
     <div class="reminder" *ngFor="let reminder of data.reminder">
       <mat-chip-list>
         <mat-chip class="chips">{{reminder | date : 'short'}}
@@ -32,20 +48,13 @@
       </mat-chip-list>
     </div>
   </div>
-
-<!-- displaying the collaborators -->
-
-<div fxLayout="row wrap">
+  <!-- displaying the collaborators -->
+  <div fxLayout="row wrap">
     <div class="collab" *ngFor="let collaborator of data.collaborators">
       <button mat-mini-fab color="accent"
         title="{{collaborator.email}}">{{collaborator.firstName[0] | uppercase}}</button>
     </div>
   </div>
-
-
-
-
-
   <div class="footer" fxLayoutAlign="space-between center">
     <app-toolbar [noteid]="data.id" [function]=data.component></app-toolbar>
     <button mat-button (click)=" updateNote()">Close</button>
@@ -71,13 +80,26 @@
 
 
 
+<!-- dialog for the trash -->
+<div class="container" fxLayoutGap="5px"  [ngStyle]="{background : data.color}" style="width: 300px" fxLayout="column" *ngIf="data.component== 'trash'">
+  <div style="margin: 0px">
+  <p style="word-break: break-all;width : 100%;margin-block-start : 0.1em;margin-block-end: 0.1em">{{data.title}}</p>
+</div>
+<div>
+  <p style="word-break: break-all;margin-block-start : 0.1em;margin-block-end: 0.1em ">{{data.description}}</p>
+</div>
+  <!-- printing the checklist  -->
+  <div *ngFor="let item of data.noteCheckLists">
+    <div *ngIf="item.status == 'open' && item.isDeleted == false ">
+      <mat-icon>check_box_outline_blank</mat-icon>
+      {{item.itemName}}
+    </div>
 
-
-
-
-<div class="container" fxLayout="column" fxLayoutGap="10px" *ngIf="data.component== 'trash'">
-  <p style="word-break: break-all;min-width : 40%">{{data.title}}</p>
-  <p style="word-break: break-all">{{data.description}}</p>
+    <div *ngIf="item.status == 'close' && item.isDeleted == false ">
+      <mat-icon>check_box</mat-icon>
+      <s> {{item.itemName}} </s>
+    </div>
+  </div>
   <div fxLayout="row wrap">
     <div *ngFor="let noteLabel of data.labels">
       <mat-chip-list>
@@ -88,7 +110,24 @@
       </mat-chip-list>
     </div>
   </div>
+  <!-- printing the remider of the note  -->
+  <div *ngIf="data.reminder.length">
+    <div class="reminder" *ngFor="let reminder of data.reminder">
+      <mat-chip-list>
+        <mat-chip class="chips">{{reminder | date : 'short'}}
+          <button class="hide" matSuffix mat-icon-button (click)="deleteReminderFromNotes(data.id,reminder)">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
+  <!-- displaying the collaborators -->
+  <div fxLayout="row wrap">
+    <div class="collab" *ngFor="let collaborator of data.collaborators">
+      <button mat-mini-fab color="accent"
+        title="{{collaborator.email}}">{{collaborator.firstName[0] | uppercase}}</button>
+    </div>
+  </div>
   <app-toolbar [noteid]="data.id" [function]=data.component></app-toolbar>
 </div>
-
-

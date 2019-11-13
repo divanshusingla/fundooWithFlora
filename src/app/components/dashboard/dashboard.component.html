@@ -74,15 +74,15 @@
           </a>
           <mat-divider></mat-divider>
           <p class="labelHeadingToolbar" mat-header>LABELS</p>
-
+          <a routerLink="." fxLayoutAlign="start center" (click)="onEdit()">
+            <mat-icon class="sidebaricons">create</mat-icon>Edit Labels
+          </a>
           <div *ngFor="let label of labels">
             <a routerLinkActive="cd"  fxLayoutAlign="start center" routerLink="/label/{{label.label}}" (click)="goToLabelData(label.label)">
               <mat-icon class="sidebaricons">label</mat-icon>{{label.label}}
             </a>
           </div>
-          <a routerLink="." fxLayoutAlign="start center" (click)="onEdit()">
-            <mat-icon class="sidebaricons">create</mat-icon>Edit Labels
-          </a>
+
           <mat-divider></mat-divider>
           <a routerLinkActive="cd" fxLayoutAlign="start center" routerLink="/archive">
             <mat-icon class="sidebaricons">archive</mat-icon>Archive

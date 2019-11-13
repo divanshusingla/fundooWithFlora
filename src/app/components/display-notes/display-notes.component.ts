@@ -63,7 +63,8 @@ openDialog(note)
         component : this.component,
         labels : note.noteLabels,
         reminder : note.reminder,
-        collaborators : note.collaborators
+        collaborators : note.collaborators,
+        noteCheckLists : note.noteCheckLists,
       }
     });
   dialogref.afterClosed().subscribe(result=> {

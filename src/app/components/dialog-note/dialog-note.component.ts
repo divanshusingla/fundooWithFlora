@@ -16,56 +16,60 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 export class DialogNoteComponent implements OnInit {
   result: any;
   response: any;
-  result1 : any;
-  response1 : any;
-  noteData : any;
+  result1: any;
+  response1: any;
+  noteData: any;
+  checkboxViewData : any;
+  itemForChecklist = new FormControl;
+  checklistItemModel : any;
+
   title = new FormControl();
   description = new FormControl();
   note: UpdateNote = new UpdateNote();
   // labelName = new FormControl();
   // labelDialog: any;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: any, @Inject(NoteServiceService) private svc: NoteServiceService, @Inject(MatDialogRef) private dialogRef: MatDialogRef<NoteMainComponent>, @Inject(DataService) private dataSvc: DataService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) private data: any, @Inject(NoteServiceService) private svc: NoteServiceService, @Inject(MatDialogRef) private dialogRef: MatDialogRef<NoteMainComponent>, @Inject(DataService) private dataSvc: DataService) {
+    // console.log("data for label ", data);
+
+  }
 
 
   ngOnInit() {
-    this.dataSvc.currentColor.subscribe((res : any)=>
-    {
-      if(res != 'default color' && res.id == this.data.id)
-      {
+
+    this.dataSvc.currentCheckbox.subscribe((res) => {
+      this.checkboxViewData = res;
+      console.log('checkboxViewData =>>>>>>>>..', this.checkboxViewData);
+    })
+    this.dataSvc.currentColor.subscribe((res: any) => {
+      if (res != 'default color' && res.id == this.data.id) {
         this.data.color = res.color;
-        console.log("color for the dialog",res);
-        
+        console.log("color for the dialog", res);
+
       }
     })
 
-    this.dataSvc.currentReminder.subscribe((res : any)=>
-    {
-      if(res != 'reminder from dialog'  && res.id == this.data.id)
-      {
+    this.dataSvc.currentReminder.subscribe((res: any) => {
+      if (res != 'reminder from dialog' && res.id == this.data.id) {
         this.data.reminder = res.reminder;
-        console.log("color for the dialog",res);
-        
+        console.log("color for the dialog", res);
+
       }
     })
 
-    this.dataSvc.currentcollabForDialog.subscribe((res : any)=>
-    {
-      if(res != 'initial collab'  && res.id == this.data.id)
-      {
+    this.dataSvc.currentcollabForDialog.subscribe((res: any) => {
+      if (res != 'initial collab' && res.id == this.data.id) {
         this.data.collaborators = res.collaborators;
         // console.log("color for the dialog",res);
-        
+
       }
     })
 
 
-    this.dataSvc.currentLabelForDialog.subscribe((res : any)=>
-    {
-      if(res != 'initial label' && res.id == this.data.id)
-      {
-        console.log("response for the label",res);
-        
+    this.dataSvc.currentLabelForDialog.subscribe((res: any) => {
+      if (res != 'initial label' && res.id == this.data.id) {
+        console.log("response for the label", res);
+
         this.data.labels = res.noteLabels;
         // console.log("color for the dialog",res);
       }
@@ -100,12 +104,11 @@ export class DialogNoteComponent implements OnInit {
   }
 
 
-  deleteReminderFromNotes(id,reminder)
-  {
-    let data = 
+  deleteReminderFromNotes(id, reminder) {
+    let data =
     {
-      noteIdList : [id],
-      reminder : reminder
+      noteIdList: [id],
+      reminder: reminder
     }
     this.svc.deleteReminderFromNotes(data).subscribe((response: any) => {
       this.dataSvc.changeMessage(response);
@@ -123,7 +126,7 @@ export class DialogNoteComponent implements OnInit {
     }
     console.log("label value.......", data);
     this.svc.deleteLabelFromNotes(data).subscribe((response: any) => {
-            this.getNoteData(noteid);
+      this.getNoteData(noteid);
       this.dataSvc.changeMessage(response);
 
       // this.data = this.noteData;
@@ -135,12 +138,78 @@ export class DialogNoteComponent implements OnInit {
   getNoteData(id) {
     this.result1 = this.svc.getNoteData(id)
     this.result1.subscribe((response) => {
-      console.log("response from th color getNOteData function ",response);   
+      console.log("response from th color getNOteData function ", response);
       this.response1 = response.data.data;
       this.noteData = this.response1[0];
       this.data.labels = this.noteData.noteLabels;
+      this.data.noteCheckLists = this.noteData.noteCheckLists;
     });
   }
 
+  addItemToChecklist(noteid)
+{
+  let checkListData =
+  {
+    "itemName" : this.itemForChecklist.value,
+    "status" : "open",
+    noteId : noteid,
+  }
+  this.svc.addItemToChecklist(checkListData).subscribe((response: any) => {
+    this.dataSvc.changeMessage(response);
+    console.log('from the checklist ================>>>>>>>',response);
+    this.checklistItemModel = "";
+    this.getNoteData(noteid);
+  });
+}
+
+updateItemFromChecklist(status,itemid,noteidi,itemName)
+{
+  var itemDataUpdate = {};
+
+if(status == "open")
+{
+ itemDataUpdate = 
+  {
+    "status" : "close",
+    "checklistId" : itemid,
+    "noteId" : noteidi,
+    "itemName" : itemName,
+  }
+}
+else
+{
+ itemDataUpdate = 
+  {
+    "status" : "open",
+    "checklistId" : itemid,
+    "noteId" : noteidi,
+    "itemName" : itemName,
+  }
+}
+
+console.log("asssssssssssssssssssssssssssssssss",itemDataUpdate);
+
+  this.svc.updateItemFromChecklist(itemDataUpdate).subscribe((response: any) => {
+    this.dataSvc.changeMessage(response);
+    console.log('from the checklist ================>>>>>>>',response);
+    this.checklistItemModel = "";
+    this.getNoteData(noteidi);
+  });
+}
+
+deleteItemFromChecklist(itemid,noteid)
+{
+  let itemData = {
+    "noteId" : noteid,
+    "checklistId" : itemid,
+    "isDeleted" : true,
+  }
+  this.svc.deleteItemFromChecklist(itemData).subscribe((response: any) => {
+    this.dataSvc.changeMessage(response);
+    console.log('from the checklist ================>>>>>>>',response);
+    this.checklistItemModel = "";
+    this.getNoteData(noteid);
+  });
+}
 
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, Input } from '@angular/core';
 import { NoteServiceService } from 'src/app/services/noteService/note-service.service';
 import { DataService } from 'src/app/services/dataService/data.service';
 import { MatDialog } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-label',
@@ -15,12 +16,17 @@ export class LabelComponent implements OnInit {
   notesByLabel : any;
   filteredRecords : any;
   component = "notesByLabel";
+  label : any;
   
 
-  constructor(@Inject(NoteServiceService) private svc : NoteServiceService,@Inject(DataService) private dataSvc : DataService,@Inject(MatDialog) private dialog : MatDialog) { }
+  constructor(@Inject(ActivatedRoute) private route : ActivatedRoute, @Inject(NoteServiceService) private svc : NoteServiceService,@Inject(DataService) private dataSvc : DataService,@Inject(MatDialog) private dialog : MatDialog) { }
 
   ngOnInit() {
-    this.getNotesByLabel();
+
+     this.route.params.subscribe(params => {
+      this.label = params['label'];
+      this.getNotesByLabel();
+      });
     this.dataSvc.currentMessage.subscribe((res:any)=>
     {
       this.getNotesByLabel();
@@ -31,11 +37,8 @@ export class LabelComponent implements OnInit {
 
 
   getNotesByLabel() {
-   
-    this.dataSvc.currentMessage.subscribe((res:any) => {
-     console.log("In ng on init",res);
      let data={
-      labelName: res
+      labelName: this.label
     }
     this.svc.getNotesByLabel(data).subscribe((response: any) => {
       this.notes = response.data.data;
@@ -47,7 +50,6 @@ export class LabelComponent implements OnInit {
     }, (error) => {
       console.log(error);
     });
-  });   
  }
 
   filterData(data)
