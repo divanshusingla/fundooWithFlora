@@ -1,60 +1,104 @@
 <div class="mainLayout">
   <mat-card class="card" fxLayout.xs="column" fxLayout.sm="column" fxLayout="row" fxLayoutAlign="center center">
-     
-    <div class="regImage" fxFlex="50" fxHide.xs="true" fxHide.md="true" fxShow="true">
-          <img src="../../../assets/images/registrationPage.jpg" class="image">
-        </div>
+    <div class="regisForm" fxLayout="column" fxLayoutAlign="center center">
+      <mat-card-header>
+        <img src="../../../assets/images/fundooLogo.png" width="50" height="50px">
+        <mat-card-title class="pageTitle">Fundoo Notes</mat-card-title>
+      </mat-card-header>
 
-     <div class="regisForm"  fxLayout="column" fxLayoutAlign="start center">
-    <mat-card-header> 
-        <img src="../../../assets/images/fundooLogo.png" width="70" height= "60px">
-      <mat-card-title class="pageTitle">Fundoo Notes</mat-card-title>
-    </mat-card-header>
+      <div fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between center">
+        <mat-form-field fxFlex="45" appearance="outline" class="field">
+          <mat-label> First Name</mat-label>
+          <input matInput placeholder="First Name" [formControl]="firstName" required>
+          <mat-error *ngIf="firstName.invalid">{{FirstNameInvalidMessage()}} </mat-error>
+        </mat-form-field>
 
-    <mat-form-field appearance="outline" class="field">
-      <mat-label> First Name</mat-label>
-      <input matInput placeholder="First Name" [formControl]="firstName" required>
-      <mat-error *ngIf="firstName.invalid">{{FirstNameInvalidMessage()}} </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="field">
-        <mat-label> Last Name</mat-label>
-        <input matInput placeholder="Last Name" [formControl]="lastName" required>
-        <mat-error *ngIf="lastName.invalid">{{ LastNameInvalidMessage()}} </mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="field">
+        <mat-form-field fxFlex="45" appearance="outline" class="field">
+          <mat-label> Last Name</mat-label>
+          <input matInput placeholder="Last Name" [formControl]="lastName" required>
+          <mat-error *ngIf="lastName.invalid">{{ LastNameInvalidMessage()}} </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="100">
+        <mat-form-field appearance="outline" class="field">
           <mat-label> Email </mat-label>
-          <input matInput placeholder="email" type="email"  [formControl]="email" required>
+          <input matInput placeholder="email" type="email" [formControl]="email" required>
           <mat-error *ngIf="email.invalid">{{ getEmailInvalidMessage()}} </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between center">
+        <mat-form-field fxFlex="45" appearance="outline" class="field">
+          <mat-label> Password</mat-label>
+          <input matInput placeholder="password" type="password" [formControl]="password" required minlength="8">
+          <mat-error *ngIf="password.invalid">{{getPasswordInvalidMessage()}} </mat-error>
+          <mat-hint>Password must be 8 characters long</mat-hint>
         </mat-form-field>
 
 
-    <mat-form-field appearance="outline" class="field" >
-      <mat-label> Password</mat-label>
-      <input matInput placeholder="password" type="password"  [formControl]="password" required minlength="8">
-      <mat-error *ngIf="password.invalid">{{getPasswordInvalidMessage()}} </mat-error>
-      <mat-hint>Password must be 8 characters long</mat-hint>
-    </mat-form-field>
+        <mat-form-field fxFlex="45" class="field" appearance="outline">
+          <mat-label>Confirm-Password</mat-label>
+          <input matInput placeholder="Confirm-Password" type="password" [formControl]="confirmPassword"
+            pattern="{{password.value}}" required minlength="8">
+          <mat-error *ngIf="confirmPassword.invalid">{{ConfirmPasswordInvalidMessage()}} </mat-error>
+        </mat-form-field>
+      </div>
+      <!-- ===================================================================== -->
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column"   fxLayoutAlign="center" fxLayoutGap="80px" fxLayoutGap.xs="10px" fxLayoutGap.sm="10px" >
+        <div class="hover">
+          <div *ngIf="pack == 'Basic'">
+            <mat-card class="back">
+              <br><br><br><br><br><br><br><br><br>
+              Add to Cart
+            </mat-card>
+          </div>
+          <div *ngIf="pack=='Advance'">
+            <mat-card style="background-color: #FFBA33" class="back">
+              <br><br><br><br><br><br><br><br><br>
+              Selected
+            </mat-card>
+          </div>
+          <mat-card class="card1">
+            <h4>Advance Package</h4>
+            Price: $99 per month
+            <ul>
+              <li>$99/month</li>
+              <li> Ability to add title, description, images, labels, checklist and colors</li>
+            </ul>
+          </mat-card>
+        </div>
+        <div class="hover">
+          <div *ngIf="pack == 'Advance'">
+            <mat-card class="back">
+              <br><br><br><br><br><br><br><br><br>
+              Add to Cart
+            </mat-card>
+          </div>
+          <div *ngIf="pack=='Basic'">
+            <mat-card style="background-color: #FFBA33" class="back">
+              <br><br><br><br><br><br><br><br><br>
+              Selected
+            </mat-card>
+          </div>
+          <mat-card class="card1">
+            <h4>Basic Package</h4>
+            Price: $49 per month
+            <ul>
+              <li>$49/month</li>
+              <li> Ability to add title, description</li>
+            </ul>
+          </mat-card>
+        </div>
+      </div>
+
+      <!-- ============================================================================================= -->
 
 
-    <mat-form-field class="field" appearance="outline">
-      <mat-label>Confirm-Password</mat-label>
-      <input matInput placeholder="Confirm-Password"  type="password" [formControl]="confirmPassword" 
-      pattern="{{password.value}}" required minlength="8">
-      <mat-error *ngIf="confirmPassword.invalid">{{ConfirmPasswordInvalidMessage()}} </mat-error>
-    </mat-form-field>
-
-    <mat-radio-group [(ngModel)]="pack">
-        <mat-radio-button value="Advance">Advance</mat-radio-button>
-        <mat-radio-button value="Basic">Basic</mat-radio-button>
-      </mat-radio-group>
-    
-   <div style="width:100%" fxLayoutAlign="space-around center">
-    <button mat-raised-button color="primary" class="button" (click)="onRegister()" >Register</button>
-    <button mat-raised-button color="primary" class="button" routerLink="../login">Sign in</button>
+      <div style="width:100%" fxLayoutAlign="space-around center">
+        <button mat-raised-button color="primary" class="button" (click)="onRegister()">Register</button>
+        <button mat-raised-button color="primary" class="button" routerLink="../login">Sign in</button>
+      </div>
     </div>
-  </div>       
-</mat-card>
+  </mat-card>
 
 </div>

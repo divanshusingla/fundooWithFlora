@@ -1,0 +1,37 @@
+<div *ngIf="data.type=='Advance'">
+  <mat-toolbar>
+  <span>Advance Pack Details</span>
+  <span style="margin: 220px;">$99/month</span>
+  </mat-toolbar>
+  
+  <div style="padding: 15px;">
+  <mat-tab-group>
+  <mat-tab label="Feature 1"> <p>Ability to add title, description, images, labels, checklist and colors</p> <br><br><br></mat-tab>
+  <mat-tab label="Feature 2"> <p>Unlimited wall space</p> <br><br><br></mat-tab>
+  <mat-tab label="Feature 3"> <p>Nice Interface</p> <br><br><br></mat-tab>
+  </mat-tab-group>
+  
+  <div fxLayoutAlign="space-between">
+  <button mat-raised-button style="margin-left: 30px;" (click)=close()>Remove</button>
+  <button mat-raised-button style="margin-right: 30px;" (click)="Send('Advance')">Proceed to Checkout</button>
+  </div>
+  </div>
+  </div>
+  
+  <div *ngIf="data.type=='Basic'">
+  <mat-toolbar>
+  <span>Basic Pack Details</span>
+  <span style="margin: 220px;">$49/month</span>
+  </mat-toolbar>
+  <div style="padding: 15px;">
+  <mat-tab-group>
+  <mat-tab label="Feature 1"> <p>Ability to add only title and description</p> <br><br><br></mat-tab>
+  <mat-tab label="Feature 2"> <p>Limited wall space</p> <br><br><br></mat-tab>
+  <mat-tab label="Feature 3"> <p>Decent Interface</p> <br><br><br></mat-tab>
+  </mat-tab-group>
+  <div fxLayoutAlign="space-between">
+  <button mat-raised-button style="margin-left: 30px;" (click)=close()>Remove</button>
+  <button mat-raised-button style="margin-right: 30px;" (click)="Send('Basic')">Proceed to Checkout</button>
+  </div>
+  </div>
+  </div>

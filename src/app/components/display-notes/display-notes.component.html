@@ -1,4 +1,5 @@
-<div *ngIf="view == 'grid'" fxLayout="row wrap" fxLayout.xs="row wrap" fxLayout.sm="row wrap" class="container">
+<ngx-masonry>
+<div  *ngIf="view == 'grid'" fxLayout="row wrap" fxLayout.xs="row wrap" fxLayout.sm="row wrap" class="container">
   <mat-card class="dcard" *ngFor="let note of display" [ngStyle]="{background : note.color}" fxFlex.xs="100"
     fxFlex.sm="46">
     <div (click)="openDialog(note)">
@@ -69,7 +70,7 @@
     </div>
   </mat-card>
 </div>
-
+</ngx-masonry>
 
 <!-- ======================================================================================= -->
 

@@ -44,6 +44,8 @@ import { QuestionsComponent } from './components/questions/questions.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { CartComponent } from './components/cart/cart.component';
 import { AddToCartComponent } from './components/add-to-cart/add-to-cart.component';
+import { CartDialogComponent } from './components/cart-dialog/cart-dialog.component';
+import { NgxMasonryModule } from 'ngx-masonry';
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,8 +80,9 @@ import { AddToCartComponent } from './components/add-to-cart/add-to-cart.compone
     QuestionsComponent,
     CartComponent,
     AddToCartComponent,
+    CartDialogComponent,
   ],
-  entryComponents : [DialogNoteComponent,EditDialogComponent,ImageDialogComponent,CollaboratorComponent],
+  entryComponents : [CartDialogComponent,DialogNoteComponent,EditDialogComponent,ImageDialogComponent,CollaboratorComponent],
   imports: [
     OwlDateTimeModule, OwlNativeDateTimeModule,
     BrowserModule,
@@ -92,7 +95,8 @@ import { AddToCartComponent } from './components/add-to-cart/add-to-cart.compone
     ReactiveFormsModule,
     MatExpansionModule,
     ImageCropperModule, 
-     FroalaEditorModule.forRoot(),FroalaViewModule.forRoot()  
+     FroalaEditorModule.forRoot(),FroalaViewModule.forRoot()  ,
+     NgxMasonryModule
   ],
   providers: [AppServiceService,AuthGuardGuard,OwlDateTimeModule],
   bootstrap: [AppComponent]

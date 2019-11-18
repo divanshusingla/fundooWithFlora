@@ -40,3 +40,28 @@ height: 900%;
   width: 100%;
    font-size: small;
 }
+
+
+.hover{
+  height: 250px;
+  }
+  
+
+  .card1{
+    width: 160px;
+    height: 170px;
+    position: relative;
+    top: -260px;
+    right: 20px;
+    transform: scaleX(0.8) scaleY(0.8);
+    }  
+  ul{
+  padding-inline-start: 20px;
+  }
+  
+  .back{
+  width: 160px;
+  height: 180px;
+  background-color: grey;
+  transform: scaleX(0.8) scaleY(0.8);
+  }

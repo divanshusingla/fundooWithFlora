@@ -1,4 +1,4 @@
-<div  fxLayoutAlign="center center ">
+<!-- <div  fxLayoutAlign="center center ">
 <h2>fundooNotes offered. Choose below service to Register.</h2>
 </div>
 <div fxLayoutAlign="center start " fxLayoutGap="20%">
@@ -14,3 +14,48 @@
 <div  fxLayoutAlign="center start ">
   <a routerLink="/login">Sign In Instead</a>
 </div>
+ -->
+
+<!-- ============================================================================================== -->
+
+<mat-toolbar>
+  <span>fundooNotes</span>
+  </mat-toolbar>
+  <h3 style="text-align: center;">Which fundooNotes service package do you want?</h3>
+  <br><br><br><br>
+  
+  <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="80px">
+  <div class="hover" (click)="openDialog('Advance')">
+  <mat-card class="back">
+  <br><br><br><br><br><br><br><br><br>
+  Add to Cart
+  </mat-card>
+  <mat-card class="card">
+  <h4>Advance Package</h4>
+  Price: $99 per month
+  <ul>
+  <li>$99/month</li>
+  <li> Ability to add title, description, images, labels, checklist and colors</li>
+  </ul>
+  </mat-card>
+  </div>
+  
+  <div class="hover" (click)="openDialog('Basic')">
+  <mat-card class="back">
+  <br><br><br><br><br><br><br><br><br>
+  Add to Cart
+  </mat-card>
+  <mat-card class="card" >
+  <h4>Basic Package</h4>
+  Price: $49 per month
+  <ul>
+  <li>$49/month</li>
+  <li> Ability to add title, description</li>
+  </ul>
+  </mat-card>
+  </div>
+  </div>
+  
+  <div fxLayoutAlign="center center">
+  <a routerLink="/login">Sign In Instead</a>
+  </div>

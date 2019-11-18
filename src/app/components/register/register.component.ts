@@ -15,7 +15,7 @@ export class RegisterComponent implements OnInit {
   response: any;
   result: any;
   userObj: User = new User();
-  pack: string;
+  pack: string ;
   productid : any;
   cartid : any;
 
@@ -62,7 +62,13 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.dataSvc.currentMessage.subscribe((res: any) => {
+      if(res != 'default message')
+      {
       this.pack = res;
+      }
+      else{
+        this.pack = 'Basic';
+      }
     console.log("pack....",this.pack);
     })
     this.getCartId();
